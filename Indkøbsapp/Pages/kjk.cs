@@ -9,4 +9,3 @@ namespace Indkøbsapp.Pages
     {
     }
 }
-asdasdasd
