@@ -7,6 +7,9 @@ namespace Indkøbsapp.Models
 {
     interface IBruger
     {
-
+        public string Navn { get; set; }
+        public int ID { get; set; }
+        public string Adresse { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }

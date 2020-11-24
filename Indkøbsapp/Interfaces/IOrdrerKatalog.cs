@@ -8,7 +8,7 @@ namespace Indkøbsapp.Interfaces
     interface IOrdrerKatalog
     {
         public List<IOrdrer> Katalog { get; set; }
-
+        public void CreateOrder();
         public IOrdrer FindOrder(int id);
         public void DeleteOrder();
     }
