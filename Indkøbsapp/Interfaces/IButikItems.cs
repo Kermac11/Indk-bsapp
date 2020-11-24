@@ -1,6 +1,10 @@
 ﻿namespace Indkøbsapp.Interfaces
 {
-   public interface IButikItems
+    public enum VareKategori
+    {Mælkeprodukter, Kød, Grønsager, Kiks, Kage, IS, 
+        
+    }
+    public interface IButikItems
     { 
         public int ID { get; set; }
         public string Navn { get; set; }

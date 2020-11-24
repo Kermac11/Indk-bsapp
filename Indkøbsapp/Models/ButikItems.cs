@@ -8,12 +8,15 @@ namespace Indkøbsapp.Models
 {
     public class ButikItems : IButikItems
     {
-        public ButikItems(int id, string navn, decimal price)
+        public ButikItems(int id, string navn, decimal price, VareKategori type)
         {
             ID = id;
             Navn = navn;
             Price = price;
+            TypeVare = type;
         }
+
+        public VareKategori TypeVare { get; set; }
         public int ID { get; set; }
         public string Navn { get; set; }
         public decimal Price { get; set; }
