@@ -6,7 +6,7 @@ using Indkøbsapp.Models;
 
 namespace Indkøbsapp.Interfaces
 {
-    interface IBrugerKatalog
+   public interface IBrugerKatalog
     {
         void CreateUser();
         IBruger SearchUser();

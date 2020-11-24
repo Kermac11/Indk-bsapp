@@ -2,7 +2,7 @@
 
 namespace Indkøbsapp.Interfaces
 {
-    interface IButiksKatalog
+   public interface IButiksKatalog
     {
         public Dictionary<int, IButikItems> Katalog { get; set; }
         public string ButiksNavn { get; set; }

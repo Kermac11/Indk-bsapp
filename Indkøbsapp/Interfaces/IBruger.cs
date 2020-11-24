@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Indkøbsapp.Models
 {
-    interface IBruger
+   public interface IBruger
     {
         public string Navn { get; set; }
         public int ID { get; set; }
