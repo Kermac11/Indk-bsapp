@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indkøbsapp", "Indkøbsapp\Indkøbsapp.csproj", "{79414E92-663A-4B48-9C21-42D6C30F1A5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndkøbsappTests", "IndkøbsappTests\IndkøbsappTests.csproj", "{D3F4E933-B297-41A1-8E12-DF739CAF5E35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndkøbsappTests", "IndkøbsappTests\IndkøbsappTests.csproj", "{D3F4E933-B297-41A1-8E12-DF739CAF5E35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

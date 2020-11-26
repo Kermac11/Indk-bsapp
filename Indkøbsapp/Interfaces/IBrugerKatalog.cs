@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Indkøbsapp.Models;
 
 namespace Indkøbsapp.Interfaces
 {
    public interface IBrugerKatalog
     {
-        void CreateUser();
+        public Dictionary<int,IBruger> Users { get; set; }
+        void CreateUser(IBruger );
         IBruger SearchUser();
         void UpdateUser();
         void DeleteUser();
-        List<IBruger> FilteredUsers();
+        Dictionary<int,IBruger> FilteredUsers();
     }
 }
