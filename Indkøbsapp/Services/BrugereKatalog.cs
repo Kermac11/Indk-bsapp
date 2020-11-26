@@ -29,7 +29,7 @@ namespace Indkøbsapp.Services
 
         public void UpdateUser(IBruger user)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void DeleteUser(int id)
