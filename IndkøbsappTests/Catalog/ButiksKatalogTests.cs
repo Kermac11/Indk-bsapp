@@ -15,9 +15,9 @@ namespace Indkøbsapp.Catalog.Tests
         public void SortPricesTest()
         {
             ButiksKatalog test =  new ButiksKatalog("bilka", "ørelundsvej");
-            IButikItems b1 = new ButikItems(0, "ost", 32);
-            IButikItems b2 = new ButikItems(1, "mælk", 72);
-            IButikItems b3 = new ButikItems(2, "pastil", 5);
+            IButikItems b1 = new ButikItems(0, "ost", 32, VareKategori.Mælkeprodukter);
+            IButikItems b2 = new ButikItems(1, "mælk", 72, VareKategori.IS);
+            IButikItems b3 = new ButikItems(2, "pastil" , 5, VareKategori.Grønsager);
             test.AddItem(b1);
             test.AddItem(b2);
             test.AddItem(b3);
