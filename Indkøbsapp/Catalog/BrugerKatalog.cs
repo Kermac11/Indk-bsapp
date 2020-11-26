@@ -10,62 +10,64 @@ namespace Indkøbsapp.Catalog
 {
     public class BrugerKatalog : IBrugerKatalog
     {
-        private Dictionary<int,IBruger> users { get; }
-
+        private Dictionary<int, Bruger> _users;
         public BrugerKatalog()
         {
-            users=new Dictionary<int, IBruger>();
+            _users=new Dictionary<int, Bruger>();
         }
 
-        public Dictionary<int, IBruger> Users { get; set; }
-
-        public void CreateUser(IBruger user)
+        public Dictionary<int, Bruger> Users
         {
-            int newUserId = Users.Count;
+            get { return _users; }
+        }
 
-            if (!Users.ContainsKey(user.ID))
+        public void CreateUser(Bruger user)
+        {
+            int newUserId = _users.Count;
+
+            if (!_users.ContainsKey(user.ID))
             {
-                Users.Add(user.ID, user);
+                _users.Add(user.ID, user);
             }
             else
             {
                 user.ID = newUserId + 1;
-                Users.Add(user.ID, user);
+                _users.Add(user.ID, user);
 
             }
         }
         public IBruger SearchUser(int id)
         {
-            if (Users.ContainsKey(id))
+            if (_users.ContainsKey(id))
             {
-                return Users[id];
+                return _users[id];
             }
 
             return null;
         }
 
-        public void UpdateUser(IBruger bruger)
+        public void UpdateUser(Bruger bruger)
         {
             if (bruger != null)
             {
-                users[bruger.ID].Adresse = bruger.Adresse;
-                users[bruger.ID].Navn = bruger.Navn;
+                _users[bruger.ID].Adresse = bruger.Adresse;
+                _users[bruger.ID].Navn = bruger.Navn;
             }
         }
 
         public void DeleteUser(int id)
         {
-            if (Users.ContainsKey(id))
+            if (_users.ContainsKey(id))
             {
-                Users.Remove(id);
+                _users.Remove(id);
             }
         }
 
-        public Dictionary<int,IBruger> FilteredUsers(string criteria)
+        public Dictionary<int, Bruger> FilteredUsers(string criteria)
         {
-            Dictionary<int, IBruger> emptyList = new Dictionary<int, IBruger>();
+            Dictionary<int, Bruger> emptyList = new Dictionary<int, Bruger>();
             criteria = criteria.ToLower();
-            foreach (IBruger user in Users.Values)
+            foreach (Bruger user in _users.Values)
             {
                 if (user.Navn.ToLower().Contains(criteria) || user.Adresse.ToLower().Contains(criteria))
                 {

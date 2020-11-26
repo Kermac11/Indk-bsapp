@@ -10,28 +10,33 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Indkøbsapp.Pages.Brugere
 {
-    public class BrugereIndexModel : PageModel
-    {
-        public IBruger Bruger { get; set; }
+    public class BrugerIndexModel : PageModel
+    { [BindProperty] 
+        public Bruger Bruger { get; set; }
+        public IBrugerKatalog Users { get; }
 
-        public IBrugerKatalog Users { get;}
-
-        public BrugereIndexModel(IBrugerKatalog users)
+        public BrugerIndexModel(IBrugerKatalog users)
         {
             Users = users;
         }
+
         public void OnGet()
         {
         }
 
         public IActionResult OnPost()
         {
-            if (Users.Users.ContainsValue(Bruger))
+            foreach (IBruger user in Users.Users.Values)
             {
-                return RedirectToPage("Index");
+                if (user.Navn == Bruger.Navn && user.PassWord == Bruger.PassWord)
+                {
+                    return RedirectToPage("BrugerSide","Bruger", new {id = user.ID});
+                }
             }
 
             return Page();
         }
     }
 }
+
+
