@@ -22,24 +22,46 @@ namespace Indkøbsapp.Services
             }
         }
 
-        public IBruger SearchUser()
+        public IBruger SearchUser(int id)
         {
-            throw new NotImplementedException();
+            if (Users.ContainsKey(id))
+            {
+                return Users[id];
+            }
+
+            return null;
         }
 
         public void UpdateUser(IBruger user)
         {
-            
+            if (Users.ContainsKey(user.ID))
+            {
+                Users[user.ID] = user;
+            }   
         }
 
         public void DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            if (Users.ContainsKey(id))
+            {
+                Users.Remove(id);
+            }
         }
 
-        public Dictionary<int, IBruger> FilteredUsers()
+        public Dictionary<int, IBruger> FilteredUsers(string criteria)
         {
-            throw new NotImplementedException();
+            Dictionary<int,IBruger> el = new Dictionary<int, IBruger>();
+            criteria = criteria.ToLower();
+            foreach (IBruger user in Users.Values)
+            {
+                if (user.Navn.ToLower().Contains(criteria) || user.Adresse.ToLower().Contains(criteria))
+                {
+                    el.Add(user.ID,user);
+                }
+                
+            }
+
+            return el;
         }
     }
 }
