@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Indkøbsapp.Models;
 
-namespace Indkøbsapp.Interfaces
+namespace Indkøbsapp.Services
 {
    public interface IBrugerKatalog
     {

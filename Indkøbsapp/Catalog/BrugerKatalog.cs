@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
+using Indkøbsapp.Services;
 
 namespace Indkøbsapp.Catalog
 {
@@ -16,14 +17,31 @@ namespace Indkøbsapp.Catalog
             users=new Dictionary<int, IBruger>();
         }
 
-        public void AddUser()
-        {
-            throw new NotImplementedException();
-        }
+        public Dictionary<int, IBruger> Users { get; set; }
 
+        public void CreateUser(IBruger user)
+        {
+            int newUserId = Users.Count;
+
+            if (!Users.ContainsKey(user.ID))
+            {
+                Users.Add(user.ID, user);
+            }
+            else
+            {
+                user.ID = newUserId + 1;
+                Users.Add(user.ID, user);
+
+            }
+        }
         public IBruger SearchUser(int id)
         {
-            return users[id];
+            if (Users.ContainsKey(id))
+            {
+                return Users[id];
+            }
+
+            return null;
         }
 
         public void UpdateUser(IBruger bruger)
@@ -37,23 +55,25 @@ namespace Indkøbsapp.Catalog
 
         public void DeleteUser(int id)
         {
-            users.Remove(id);
+            if (Users.ContainsKey(id))
+            {
+                Users.Remove(id);
+            }
         }
 
-        public List<IBruger> FilteredUsers(string criteria)
+        public Dictionary<int,IBruger> FilteredUsers(string criteria)
         {
-            List<IBruger> emptyList = new List<IBruger>();
-            string lcriteria = criteria.ToLower();
-
-            foreach (IBruger user in users.Values)
+            Dictionary<int, IBruger> emptyList = new Dictionary<int, IBruger>();
+            criteria = criteria.ToLower();
+            foreach (IBruger user in Users.Values)
             {
-                string lName = user.Navn.ToLower();
-                string lAdress = user.Adresse.ToLower();
-                if (lName.Contains(lcriteria) || lAdress.Contains(lcriteria))
+                if (user.Navn.ToLower().Contains(criteria) || user.Adresse.ToLower().Contains(criteria))
                 {
-                    emptyList.Add(user);
+                    emptyList.Add(user.ID, user);
                 }
+
             }
+
             return emptyList;
         }
     }
