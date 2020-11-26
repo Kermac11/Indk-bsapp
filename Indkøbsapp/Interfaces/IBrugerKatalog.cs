@@ -6,7 +6,7 @@ namespace Indkøbsapp.Interfaces
    public interface IBrugerKatalog
     {
         public Dictionary<int,IBruger> Users { get; set; }
-        void CreateUser(IBruger );
+        void CreateUser(IBruger user);
         IBruger SearchUser();
         void UpdateUser();
         void DeleteUser();
