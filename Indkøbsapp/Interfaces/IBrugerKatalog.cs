@@ -8,8 +8,8 @@ namespace Indkøbsapp.Interfaces
         public Dictionary<int,IBruger> Users { get; set; }
         void CreateUser(IBruger user);
         IBruger SearchUser();
-        void UpdateUser();
-        void DeleteUser();
+        void UpdateUser(IBruger user);
+        void DeleteUser(int id);
         Dictionary<int,IBruger> FilteredUsers();
     }
 }
