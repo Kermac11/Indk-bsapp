@@ -6,12 +6,12 @@ using Indkøbsapp.Models;
 
 namespace Indkøbsapp.Interfaces
 {
-    public interface IBrugerKatalog
+   public interface IBrugerKatalog
     {
-        void AddUser();
-        IBruger SearchUser(int id);
-        void UpdateUser(IBruger bruger);
-        void DeleteUser(int id);
-        List<IBruger> FilteredUsers(string criteria);
+        void CreateUser();
+        IBruger SearchUser();
+        void UpdateUser();
+        void DeleteUser();
+        List<IBruger> FilteredUsers();
     }
 }
