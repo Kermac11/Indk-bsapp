@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Indkøbsapp.Interfaces;
+using Indkøbsapp.Models;
 
 namespace Indkøbsapp.Catalog
 {
     public class ButiksKatalog : IButiksKatalog
     {
-        public Dictionary<int, IButikItems> Katalog { get; set; }
+        private Dictionary<int, IButikItems> Katalog;
         public string ButiksNavn { get; set; }
         public string Lokation { get; set; }
 
-        public ButiksKatalog(string navn, string loakation)
+        public ButiksKatalog()
         {
-            ButiksNavn = navn;
-            Lokation = loakation;
             Katalog = new Dictionary<int, IButikItems>();
+            Katalog.Add(1,new ButikItems(1,"fdb",0.2,0));
+            Katalog.Add(2,new ButikItems(2,"cwecv",5.2,(VareKategori) 2));
         }
         public IButikItems FindItem(int id)
         {
@@ -60,7 +61,7 @@ namespace Indkøbsapp.Catalog
             return dl;
         }
 
-        public Dictionary<int, IButikItems> FilterIems(string criteria)
+        public Dictionary<int, IButikItems> FilterItems(string criteria)
         {
             string cl = criteria.ToLower(); 
             Dictionary<int, IButikItems> dl = new Dictionary<int, IButikItems>();
@@ -73,6 +74,11 @@ namespace Indkøbsapp.Catalog
             }
 
             return dl;
+        }
+
+        public Dictionary<int,IButikItems> GetAllButikItems()
+        {
+            return Katalog;
         }
     }
 }

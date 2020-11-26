@@ -8,7 +8,7 @@ namespace Indkøbsapp.Models
 {
     public class ButikItems : IButikItems
     {
-        public ButikItems(int id, string navn, decimal price, VareKategori type)
+        public ButikItems(int id, string navn, double price, VareKategori type)
         {
             ID = id;
             Navn = navn;
@@ -19,7 +19,7 @@ namespace Indkøbsapp.Models
         public VareKategori TypeVare { get; set; }
         public int ID { get; set; }
         public string Navn { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public string Description { get; set; }
         public string Billede { get; set; }
     }
