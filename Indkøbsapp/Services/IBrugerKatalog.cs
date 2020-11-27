@@ -5,11 +5,12 @@ namespace Indkøbsapp.Services
 {
    public interface IBrugerKatalog
     {
-        void CreateUser(IBruger user);
+        void CreateUser(Bruger user);
         IBruger SearchUser(int id);
-        void UpdateUser(IBruger user);
+        void UpdateUser(Bruger user);
         void DeleteUser(int id);
-        Dictionary<int,IBruger> FilteredUsers(string criteria);
+        Dictionary<int,Bruger> FilteredUsers(string criteria);
         IBruger CheckPassword(Bruger bruger);
+        Dictionary<int, Bruger> GetAllUsers();
     }
 }
