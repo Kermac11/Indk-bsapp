@@ -20,19 +20,19 @@ namespace Indkøbsapp.Pages
         public ButikItemsModel()
         {
             repo = new ButiksKatalog();
-            Items=new List<IButikItems>();
-            foreach (var item in repo.GetAllButikItems().Values)
-            {
-                Items.Add(item);
-            }
         }
-
-
-
+        //bør nok bruge json i stedet for dette, det er heller ikke en singleton lige nu
+        //skal bruge inject tror jeg
+        
 
         public void OnGet()
         {
+            Items = repo.FilterItems(Criteria);
+        }
 
+        public void OnPost()
+        {
+            Items = repo.FilterItems(Criteria);
         }
     }
 }

@@ -61,18 +61,27 @@ namespace Indkøbsapp.Catalog
             return dl;
         }
 
-        public Dictionary<int, IButikItems> FilterItems(string criteria)
+        public List<IButikItems> FilterItems(string criteria)
         {
-            string cl = criteria.ToLower(); 
-            Dictionary<int, IButikItems> dl = new Dictionary<int, IButikItems>();
-            foreach (IButikItems item in Katalog.Values)
+            List<IButikItems> dl = new List<IButikItems>();
+            if (criteria == "" || criteria == null)
             {
-                if (item.Navn.ToLower().StartsWith(cl))
+                foreach (var item in Katalog.Values)
                 {
-                    dl.Add(item.ID, item);
+                    dl.Add(item);
                 }
             }
-
+            else
+            {
+                string cl = criteria.ToLower();
+                foreach (IButikItems item in Katalog.Values)
+                {
+                    if (item.Navn.ToLower().StartsWith(cl))
+                    {
+                        dl.Add(item);
+                    }
+                }
+            }
             return dl;
         }
 

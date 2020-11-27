@@ -8,7 +8,7 @@ namespace Indkøbsapp.Interfaces
         public void AddItem(IButikItems item);
         public void DeleteItem(int id);
         public Dictionary<int,IButikItems> SortPrices();
-        public Dictionary<int, IButikItems> FilterItems(string criteria);
+        public List<IButikItems> FilterItems(string criteria);
         public Dictionary<int,IButikItems> GetAllButikItems();
     }
 }
