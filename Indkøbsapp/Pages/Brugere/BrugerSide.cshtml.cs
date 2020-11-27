@@ -13,7 +13,7 @@ namespace Indkøbsapp.Pages.Brugere
     public class BrugerSideModel : PageModel
     {
         [BindProperty]
-        public Bruger Bruger { get; set; }
+        public IBruger Bruger { get; set; }
         public IBrugerKatalog Users { get; }
 
         public BrugerSideModel(IBrugerKatalog list)
@@ -26,7 +26,7 @@ namespace Indkøbsapp.Pages.Brugere
 
         public void OnGetBruger (int id)
         {
-            Bruger = Users.Users[id];
+            Bruger = Users.SearchUser(id);
         }
 
     }

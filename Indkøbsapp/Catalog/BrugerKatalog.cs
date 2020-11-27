@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
@@ -10,18 +12,22 @@ namespace Indkøbsapp.Catalog
 {
     public class BrugerKatalog : IBrugerKatalog
     {
-        private Dictionary<int, Bruger> _users;
+        private Dictionary<int, IBruger> _users;
+
         public BrugerKatalog()
         {
-            _users=new Dictionary<int, Bruger>();
+            _users = new Dictionary<int, IBruger>();
         }
 
-        public Dictionary<int, Bruger> Users
+
+        public Dictionary<int, IBruger> Katalog
         {
+
             get { return _users; }
         }
 
-        public void CreateUser(Bruger user)
+
+        public void CreateUser(IBruger user)
         {
             int newUserId = _users.Count;
 
@@ -36,6 +42,7 @@ namespace Indkøbsapp.Catalog
 
             }
         }
+
         public IBruger SearchUser(int id)
         {
             if (_users.ContainsKey(id))
@@ -46,7 +53,7 @@ namespace Indkøbsapp.Catalog
             return null;
         }
 
-        public void UpdateUser(Bruger bruger)
+        public void UpdateUser(IBruger bruger)
         {
             if (bruger != null)
             {
@@ -63,11 +70,11 @@ namespace Indkøbsapp.Catalog
             }
         }
 
-        public Dictionary<int, Bruger> FilteredUsers(string criteria)
+        public Dictionary<int, IBruger> FilteredUsers(string criteria)
         {
-            Dictionary<int, Bruger> emptyList = new Dictionary<int, Bruger>();
+            Dictionary<int, IBruger> emptyList = new Dictionary<int, IBruger>();
             criteria = criteria.ToLower();
-            foreach (Bruger user in _users.Values)
+            foreach (IBruger user in _users.Values)
             {
                 if (user.Navn.ToLower().Contains(criteria) || user.Adresse.ToLower().Contains(criteria))
                 {
@@ -77,6 +84,20 @@ namespace Indkøbsapp.Catalog
             }
 
             return emptyList;
+        }
+
+        public IBruger CheckPassword(Bruger bruger)
+        {
+            foreach (IBruger user in _users.Values)
+            {
+                if (user.Navn == bruger.Navn && user.PassWord == bruger.PassWord)
+                {
+                    return user;
+
+                }
+            }
+
+            return null;
         }
     }
 }
