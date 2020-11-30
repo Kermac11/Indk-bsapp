@@ -12,6 +12,7 @@ namespace Indkøbsapp.Pages.Butikker
 {
     public class CreateButikModel : PageModel
     {
-
+        [BindProperty]
+        public Butik Butik { get; set; }
     }
 }
