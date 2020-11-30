@@ -24,9 +24,9 @@ namespace Indkøbsapp.Pages.Brugere
         {
         }
 
-        public void OnGetBruger (int id)
+        public void OnGetBruger (string username)
         {
-            Bruger = Users.SearchUser(id);
+            Bruger = Users.SearchUser(username);
         }
 
     }

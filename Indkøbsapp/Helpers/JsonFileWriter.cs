@@ -10,7 +10,7 @@ namespace RazorPagesEventMaker.Helpers
 {
     public class JsonFileWriter
     {
-        public static void WriteToJson(Dictionary<int,Bruger> bruger, string filePath)
+        public static void WriteToJson(Dictionary<string,Bruger> bruger, string filePath)
         {
             string output = JsonConvert.SerializeObject(bruger);
             File.WriteAllText(filePath, output);

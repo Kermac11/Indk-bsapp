@@ -10,10 +10,10 @@ namespace RazorPagesEventMaker.Helpers
 {
     public class JsonFileReader
     {
-        public static Dictionary<int,Bruger> ReadJson(string filePath)
+        public static Dictionary<string,Bruger> ReadJson(string filePath)
         {
             string jsonString = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<Dictionary<int,Bruger>>(jsonString);
+            return JsonConvert.DeserializeObject<Dictionary<string,Bruger>>(jsonString);
         }
 
         

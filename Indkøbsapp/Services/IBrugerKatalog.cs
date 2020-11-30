@@ -11,8 +11,8 @@ namespace Indkøbsapp.Services
         void UpdateUser(Bruger user);
         void DeleteUserName(string username);        
         void DeleteUserId(int id);
-        Dictionary<int,Bruger> FilteredUsers(string criteria); 
+        Dictionary<string,Bruger> FilteredUsers(string criteria); 
         Bruger CheckPassword(Bruger bruger);
-        Dictionary<int, Bruger> GetAllUsers();
+        Dictionary<string, Bruger> GetAllUsers();
     }
 }

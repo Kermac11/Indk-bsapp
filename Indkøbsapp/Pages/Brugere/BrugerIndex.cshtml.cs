@@ -31,7 +31,7 @@ namespace Indkøbsapp.Pages.Brugere
             Bruger check = Users.CheckPassword(Bruger);
             if (check != null)
             {
-                return RedirectToPage("BrugerSide", "Bruger", new { id = check.ID });
+                return RedirectToPage("BrugerSide", "Bruger", new { username = check.UserName });
             }
             return Page();
         }

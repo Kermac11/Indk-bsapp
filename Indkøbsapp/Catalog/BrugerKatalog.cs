@@ -22,29 +22,37 @@ namespace Indkøbsapp.Catalog
 
         public void CreateUser(Bruger user)
         {
-            Dictionary<int, Bruger> _users = GetAllUsers();
+            Dictionary<string, Bruger> _users = GetAllUsers();
             int newUserId = _users.Count;
-            if (!_users.ContainsKey(user.ID))
+            if (!_users.ContainsKey(user.UserName))
             {
-                _users.Add(user.ID, user);
+                _users.Add(user.UserName, user);
             }
-            else
-            {
-                user.ID = newUserId;
-                _users.Add(user.ID, user);
-            }
-
             JsonFileWriter.WriteToJson(_users, filepath);
         }
 
         public string UserName { get; set; }
 
+
+        public IBruger SearchUser(string username)
+        {
+            Dictionary<string, Bruger> _users = GetAllUsers();
+            if (_users.ContainsKey(username))
+            {
+                return _users[username];
+            }
+
+            return null;
+        }
+
         public IBruger SearchUser(int id)
         {
-            Dictionary<int, Bruger> _users = GetAllUsers();
-            if (_users.ContainsKey(id))
+            foreach (Bruger user in GetAllUsers().Values)
             {
-                return _users[id];
+                if (user.ID == id)
+                {
+                    return user;
+                }    
             }
 
             return null;
@@ -52,45 +60,65 @@ namespace Indkøbsapp.Catalog
 
         public void UpdateUser(Bruger bruger)
         {
-            Dictionary<int, Bruger> _users = GetAllUsers();
+            Dictionary<string, Bruger> _users = GetAllUsers();
             if (bruger != null)
             {
-                _users[bruger.ID].Adresse = bruger.Adresse;
-                _users[bruger.ID].Navn = bruger.Navn;
+                _users[bruger.UserName].Adresse = bruger.Adresse;
+                _users[bruger.UserName].Navn = bruger.Navn;
             }
             JsonFileWriter.WriteToJson(_users, filepath);
         }
 
         public void DeleteUserName(string username)
         {
-            throw new NotImplementedException();
+            Dictionary<string, Bruger> _users = GetAllUsers();
+            if (_users.ContainsKey(username))
+            {
+                _users.Remove(username);
+            }
+            JsonFileWriter.WriteToJson(_users,filepath);
         }
 
         public void DeleteUserId(int id)
         {
-            throw new NotImplementedException();
+            Bruger brugerCheck = null;
+            Dictionary<string, Bruger> _users = GetAllUsers();
+            foreach (Bruger user in _users.Values)
+            {
+                if (user.ID == id)
+                {
+                    brugerCheck = user;
+                }
+            }
+
+            if (brugerCheck != null)
+            {
+                _users.Remove(brugerCheck.UserName);
+                JsonFileWriter.WriteToJson(_users,filepath);
+            }
+           
         }
 
-        public void DeleteUser(int id)
+        public void DeleteUser(string user)
         {
-            Dictionary<int, Bruger> _users = GetAllUsers();
-            if (_users.ContainsKey(id))
+            Dictionary<string, Bruger> _users = GetAllUsers();
+            if (_users.ContainsKey(user))
             {
-                _users.Remove(id);
+                _users.Remove(user);
             }
             JsonFileWriter.WriteToJson(_users, filepath);
         }
 
-        public Dictionary<int, Bruger> FilteredUsers(string criteria)
+        public Dictionary<string, Bruger> FilteredUsers(string criteria)
         {
-            Dictionary<int, Bruger> _users = GetAllUsers();
-            Dictionary<int, Bruger> emptyList = new Dictionary<int, Bruger>();
+            Dictionary<string, Bruger> _users = GetAllUsers();
+            Dictionary<string, Bruger> emptyList = new Dictionary<string, Bruger>();
             criteria = criteria.ToLower();
             foreach (Bruger user in _users.Values)
             {
                 if (user.Navn.ToLower().Contains(criteria) || user.Adresse.ToLower().Contains(criteria))
                 {
-                    emptyList.Add(user.ID, user);
+                    emptyList.Add(user.UserName, user);
                 }
 
             }
@@ -100,20 +128,19 @@ namespace Indkøbsapp.Catalog
 
         public Bruger CheckPassword(Bruger bruger)
         {
-            Dictionary<int, Bruger> _users = GetAllUsers();
-            foreach (Bruger user in _users.Values)
+            Dictionary<string, Bruger> _users = GetAllUsers();
+            if (_users.ContainsKey(bruger.UserName))
             {
-                if (user.Navn == bruger.Navn && user.PassWord == bruger.PassWord)
+                if (_users[bruger.UserName].PassWord == bruger.PassWord)
                 {
-                    return user;
-
+                    return _users[bruger.UserName];
                 }
+                
             }
-
             return null;
         }
 
-        public Dictionary<int, Bruger> GetAllUsers()
+        public Dictionary<string, Bruger> GetAllUsers()
         {
              return JsonFileReader.ReadJson(filepath);
         }
