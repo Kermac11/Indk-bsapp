@@ -37,6 +37,8 @@ namespace Indkøbsapp.Catalog
             JsonFileWriter.WriteToJson(_users, filepath);
         }
 
+        public string UserName { get; set; }
+
         public IBruger SearchUser(int id)
         {
             Dictionary<int, Bruger> _users = GetAllUsers();
@@ -57,6 +59,16 @@ namespace Indkøbsapp.Catalog
                 _users[bruger.ID].Navn = bruger.Navn;
             }
             JsonFileWriter.WriteToJson(_users, filepath);
+        }
+
+        public void DeleteUserName(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteUserId(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public void DeleteUser(int id)

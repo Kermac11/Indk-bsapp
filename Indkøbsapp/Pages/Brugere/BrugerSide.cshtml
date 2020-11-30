@@ -10,6 +10,9 @@
     @Model.Bruger.Adresse
 </p>
 
-<p>
-    @Model.Bruger.Leverandør
-</p>
+@if (Model.Bruger.Leverandør == true)
+{
+    <p>
+        Jeg er leverandør
+    </p>
+}
