@@ -9,8 +9,8 @@ namespace Indkøbsapp.Services
         IBruger SearchUser(int id);
         void UpdateUser(Bruger user);
         void DeleteUser(int id);
-        Dictionary<int,Bruger> FilteredUsers(string criteria);
-        IBruger CheckPassword(Bruger bruger);
+        Dictionary<int,Bruger> FilteredUsers(string criteria); 
+        Bruger CheckPassword(Bruger bruger);
         Dictionary<int, Bruger> GetAllUsers();
     }
 }

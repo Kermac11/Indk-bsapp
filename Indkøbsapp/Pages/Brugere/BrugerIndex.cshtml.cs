@@ -28,10 +28,10 @@ namespace Indkøbsapp.Pages.Brugere
         public IActionResult OnPost()
         {
 
-            IBruger check = Users.CheckPassword(Bruger);
+            Bruger check = Users.CheckPassword(Bruger);
             if (check != null)
             {
-                return RedirectToPage("BrugerSide", "Bruger", new { id = Bruger.ID });
+                return RedirectToPage("BrugerSide", "Bruger", new { id = check.ID });
             }
             return Page();
         }

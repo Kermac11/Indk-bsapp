@@ -86,7 +86,7 @@ namespace Indkøbsapp.Catalog
             return emptyList;
         }
 
-        public IBruger CheckPassword(Bruger bruger)
+        public Bruger CheckPassword(Bruger bruger)
         {
             Dictionary<int, Bruger> _users = GetAllUsers();
             foreach (Bruger user in _users.Values)
