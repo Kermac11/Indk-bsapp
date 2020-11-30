@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Indkøbsapp.Catalog;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Services;
+using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace Indkøbsapp
         {
             services.AddSingleton<IBrugerKatalog, BrugerKatalog>();
             services.AddRazorPages();
+            services.AddSingleton<FakeButikRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
