@@ -1,0 +1,46 @@
+﻿@page
+@model Indkøbsapp.Pages.Butikker.ButikIndexModel
+@{
+}
+
+<h1>Butikker</h1>
+<h1>Alle butikkerne </h1>
+<p>
+    <a asp-page="CreateButik">Tilføj butik</a>
+</p>
+<div>
+    <ul>
+        <li> There are @Model.Butikker.Count butikker</li>
+    </ul>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Butiksnavn
+            </th>
+            <th>
+                Lokation
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Butikker)
+        {
+            <tr>
+                <td>
+                    @item.ButiksNavn
+                </td>
+                <td>
+                    @item.Lokation
+                </td>
+                <td>
+                    <a asp-page="ButiksVarer" asp-route-Code="@item.ButiksNavn">Butikkens Varer</a> |
+                    <a asp-page="DeleteButik" asp-route-Code="@item.Lokation">Slet denne butik</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
