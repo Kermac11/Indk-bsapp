@@ -8,7 +8,7 @@ namespace Indkøbsapp.Services
 {
     public class ButiksKatalog : IButiksKatalog
     {
-        private string filepath = "C:\\Users\\babaw\\OneDrive\\Skrivebord\\VisualStudioTing\\Ny mappe\\Indkøbsapp\\Data\\JsonVarer.json";
+        private string filepath = @"Data\JsonVarer.json";
         
         public string ButiksNavn { get; set; }
         public string Lokation { get; set; }
