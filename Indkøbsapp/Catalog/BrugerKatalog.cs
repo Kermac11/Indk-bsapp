@@ -45,7 +45,7 @@ namespace Indkøbsapp.Catalog
             return null;
         }
 
-        public IBruger SearchUser(int id)
+       public IBruger SearchUserId(int id)
         {
             foreach (Bruger user in GetAllUsers().Values)
             {

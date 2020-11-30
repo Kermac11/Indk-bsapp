@@ -14,6 +14,7 @@ namespace Indkøbsapp.Models
         [Required]
         public string Adresse { get; set; }
         public DateTime CreationDate { get; set; }
+        [Required]
         public string UserName { get; set; }
 
         [Required]
