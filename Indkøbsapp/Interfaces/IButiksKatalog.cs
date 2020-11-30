@@ -2,7 +2,7 @@
 
 namespace Indkøbsapp.Interfaces
 {
-    interface IButiksKatalog
+   public interface IButiksKatalog
     {
         public Dictionary<int, IButikItems> Katalog { get; set; }
         public string ButiksNavn { get; set; }
@@ -11,8 +11,8 @@ namespace Indkøbsapp.Interfaces
         public IButikItems FindItem(int id);
         public void AddItem(IButikItems item);
         public void DeleteItem(int id);
-        public IButikItems FilterPrices();
-        public Dictionary<int, IButikItems> FilterIems();
+        public Dictionary<int,IButikItems> SortPrices();
+        public Dictionary<int, IButikItems> FilterIems(string criteria);
 
     }
 }
