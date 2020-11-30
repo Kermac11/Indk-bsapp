@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
+using Indkøbsapp.Services;
 
 namespace Indkøbsapp.Catalog.Tests
 {

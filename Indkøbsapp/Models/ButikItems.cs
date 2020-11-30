@@ -8,14 +8,11 @@ namespace Indkøbsapp.Models
 {
     public class ButikItems : IButikItems
     {
-        public ButikItems(int id, string navn, double price, VareKategori type)
+        public ButikItems()
         {
-            ID = id;
-            Navn = navn;
-            Price = price;
-            TypeVare = type;
+            
         }
-
+        //Her mangler [REQUIRED og sådan noget
         public VareKategori TypeVare { get; set; }
         public int ID { get; set; }
         public string Navn { get; set; }

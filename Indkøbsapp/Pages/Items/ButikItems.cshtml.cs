@@ -5,6 +5,7 @@ using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using Indkøbsapp.Catalog;
 using Indkøbsapp.Interfaces;
+using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,14 +18,11 @@ namespace Indkøbsapp.Pages
 
         [BindProperty] public string Criteria { get; set; }
 
-        public ButikItemsModel()
+        public ButikItemsModel(IButiksKatalog varer)
         {
-            repo = new ButiksKatalog();
+            repo = varer;
         }
-        //bør nok bruge json i stedet for dette, det er heller ikke en singleton lige nu
-        //skal bruge inject tror jeg
         
-
         public void OnGet()
         {
             Items = repo.FilterItems(Criteria);

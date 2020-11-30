@@ -9,20 +9,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Indkøbsapp.Pages.Items
 {
-    public class CreateButikItemModel : PageModel
+    public class EditItemModel : PageModel
     {
         private IButiksKatalog repo;
 
         [BindProperty]
         public ButikItems Item { get; set; }
 
-        public CreateButikItemModel(IButiksKatalog repository)
+        public EditItemModel(IButiksKatalog repository)
         {
             repo = repository;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int id)
         {
+            Item=repo.GetAllButikVarer()[id];
             return Page();
         }
         //Der skal være noget der håndterer at Id passer til item fordi den addes til en dictionary og ikke en list
@@ -34,14 +35,14 @@ namespace Indkøbsapp.Pages.Items
         {
             if (!ModelState.IsValid)
             {
+                
                 return Page();
             }
 
-            repo.AddItem(Item);
+            repo.EditVare(Item);
             return RedirectToPage("ButikItems");
         }
 
     }
 
 }
-

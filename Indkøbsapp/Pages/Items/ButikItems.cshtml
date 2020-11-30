@@ -2,6 +2,7 @@
 @using Indkøbsapp.Interfaces
 @using Indkøbsapp.Catalog
 @model Indkøbsapp.Pages.ButikItemsModel
+@inject IButiksKatalog ButiksKatalog
 @{
 ViewData["Title"] = "ButikItems";
 }
@@ -22,7 +23,7 @@ ViewData["Title"] = "ButikItems";
 <h1>Liste af butik items</h1>
 
 <p>
-    <a asp-page="CreateItem">Create New</a>
+    <a asp-page="CreateButikItem">Create New</a>
 </p>
 
 
@@ -46,7 +47,7 @@ ViewData["Title"] = "ButikItems";
             <td> @item.Description</td>
             <td> @item.Price</td>
             <td> @item.Billede</td>
-            <td><a asp-page="EditEvent" asp-route-id="@item.ID">Edit</a></td>
+            <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
         </tr>
 
     }
@@ -67,7 +68,7 @@ ViewData["Title"] = "ButikItems";
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.repo.GetAllButikItems().Values)
+    @foreach (var item in Model.repo.GetAllButikVarer().Values)
     {
         <tr>
             <td> @item.ID</td>
