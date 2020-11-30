@@ -9,9 +9,30 @@ namespace Indkøbsapp.Models
     public class Ordrer : IOrdrer
     {
         public List<IButikItems> Order { get; set; }
-        public IBruger Buyer { get; set; }
+        public Bruger Buyer { get; set; }
         public int ID { get; set; }
         public decimal Price { get; set; }
         public int AntalVarerIOdrer { get; set; }
+        public void AddItem(IButikItems item)
+        {
+            Order.Add(item);
+        }
+
+        public void DeleteItem(int id)
+        {
+            IButikItems check = null;
+            foreach (IButikItems item in Order)
+            {
+                if (item.ID == id )
+                {
+                    check = item;
+                }   
+            }
+
+            if (check != null)
+            {
+                Order.Remove(check);
+            }
+        }
     }
 }

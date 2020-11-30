@@ -4,22 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
+using Indkøbsapp.Services;
 
 namespace Indkøbsapp.Catalog
 {
     public class OrderKatalog : IOrdrerKatalog
     {
-        private IDictionary<int, IOrdrer> _katalog;
-        public IDictionary<int, IOrdrer> Katalog { get; set; }
+        private Dictionary<int, Ordrer> _katalog;
+        public Dictionary<int, Ordrer> Katalog { get; set; }
 
         public OrderKatalog()
         {
-            Katalog = new Dictionary<int, IOrdrer>();
+            Katalog = new Dictionary<int, Ordrer>();
         }
 
       
 
-        public void CreateOrder(IOrdrer order)
+        public void CreateOrder(Ordrer order)
         {
             if (Katalog.Count == 0)
             {
@@ -32,7 +33,7 @@ namespace Indkøbsapp.Catalog
             Katalog.Add(order.ID,order);
         }
 
-        public IOrdrer FindOrder(int id)
+        public Ordrer FindOrder(int id)
         {
             if (Katalog.ContainsKey(id))
             {
@@ -50,10 +51,10 @@ namespace Indkøbsapp.Catalog
             }
         }
 
-        public List<IOrdrer> FindBrugereOrder(IBruger user)
+        public List<Ordrer> FindBrugereOrder(Bruger user)
         {
-            List<IOrdrer> el = new List<IOrdrer>();
-            foreach (IOrdrer item in Katalog.Values)
+            List<Ordrer> el = new List<Ordrer>();
+            foreach (Ordrer item in Katalog.Values)
             {
                 if (item.Buyer == user)
                 {
