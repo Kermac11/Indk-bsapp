@@ -26,6 +26,7 @@ namespace Indkøbsapp.Catalog
             int newUserId = _users.Count;
             if (!_users.ContainsKey(user.UserName))
             {
+                user.CreationDate = DateTime.Now;
                 _users.Add(user.UserName, user);
             }
             JsonFileWriter.WriteToJson(_users, filepath);
@@ -34,7 +35,7 @@ namespace Indkøbsapp.Catalog
         public string UserName { get; set; }
 
 
-        public IBruger SearchUser(string username)
+        public Bruger SearchUser(string username)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
             if (_users.ContainsKey(username))
@@ -45,7 +46,7 @@ namespace Indkøbsapp.Catalog
             return null;
         }
 
-       public IBruger SearchUserId(int id)
+       public Bruger SearchUserId(int id)
         {
             foreach (Bruger user in GetAllUsers().Values)
             {
@@ -63,8 +64,7 @@ namespace Indkøbsapp.Catalog
             Dictionary<string, Bruger> _users = GetAllUsers();
             if (bruger != null)
             {
-                _users[bruger.UserName].Adresse = bruger.Adresse;
-                _users[bruger.UserName].Navn = bruger.Navn;
+                _users[bruger.UserName] = bruger;
             }
             JsonFileWriter.WriteToJson(_users, filepath);
         }
@@ -138,6 +138,17 @@ namespace Indkøbsapp.Catalog
                 
             }
             return null;
+        }
+
+        public Dictionary<string, Bruger> SortByCreation()
+        {
+            Dictionary<string, Bruger> _users = GetAllUsers();
+            foreach (KeyValuePair<string,Bruger> item in _users.OrderBy(key => key.Value.CreationDate))
+            {
+                _users.Add(item.Key,item.Value);
+            }
+
+            return _users;
         }
 
         public Dictionary<string, Bruger> GetAllUsers()

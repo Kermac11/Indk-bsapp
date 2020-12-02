@@ -7,8 +7,8 @@ namespace Indkøbsapp.Services
     {
         void CreateUser(Bruger user);
         public string UserName { get; set; }
-        IBruger SearchUser(string username);
-        IBruger SearchUserId(int id);
+        Bruger SearchUser(string username);
+        Bruger SearchUserId(int id);
         void UpdateUser(Bruger user);
         void DeleteUserName(string username);        
         void DeleteUserId(int id);

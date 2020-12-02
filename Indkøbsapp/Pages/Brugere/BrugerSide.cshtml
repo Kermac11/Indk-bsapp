@@ -1,7 +1,10 @@
 ﻿@page
+@using Indkøbsapp.Models
 @model Indkøbsapp.Pages.Brugere.BrugerSideModel
 @{
 }
+<a asp-page="BrugerEdit" asp-route-bruger="@Model.Bruger.UserName">Redigere Oplysninger</a>
+
 <h1>
     @Model.Bruger.Navn
 </h1>
@@ -9,10 +12,40 @@
 <h1>
     @Model.Bruger.Adresse
 </h1>
-
+<h1>
+    Skabt den @Model.Bruger.CreationDate
+</h1>
 @if (Model.Bruger.Leverandør == true)
 {
     <p>
         Jeg er leverandør
     </p>
+}
+
+@if (Model.Bruger is Admin)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>UserName</th>
+            <th>Name</th>
+            <th>Adresse</th>
+            <th>Creation Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Bruger item in Model.Users.GetAllUsers().Values)
+        {
+            <tr>
+                <td> @item.ID</td>
+                <td> @item.UserName</td>
+                <td> @item.Navn</td>
+                <td> @item.Adresse</td>
+                <td> @item.CreationDate</td>
+            </tr>
+
+        }
+        </tbody>
+    </table>
 }

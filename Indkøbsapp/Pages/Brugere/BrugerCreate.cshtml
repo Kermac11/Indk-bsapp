@@ -3,6 +3,7 @@
 @{
 }
 <form method="post">
+    
     <div class="form-group">
         <label asp-for="@Model.Bruger.UserName" class="custom-control-label"></label>
         <input asp-for="@Model.Bruger.UserName" class="form-control"/>
@@ -19,9 +20,11 @@
         <label asp-for="@Model.Bruger.Adresse" class="custom-control-label"></label>
         <input asp-for="@Model.Bruger.Adresse" class="form-control"/>
     </div>
-    <div class="form-group">
-        <label asp-for="@Model.Bruger.Leverandør" class="custom-control-label"></label>
-        <input type="checkbox" asp-for="@Model.Bruger.Leverandør" class="form-control"/>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="@Model.Bruger.Leverandør" class="custom-control-label"></label>
+            <input type="checkbox" asp-for="@Model.Bruger.Leverandør" class="form-control"/>
+        </div>
     </div>
     <input type="submit" value="create" class="btn btn-primary"/>
 </form>
