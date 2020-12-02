@@ -28,18 +28,23 @@
     <tbody>
         @foreach (var item in Model.Butikker)
         {
-            <tr>
-                <td>
-                    @item.ButiksNavn
-                </td>
-                <td>
-                    @item.Lokation
-                </td>
-                <td>
-                    <a asp-page="ButiksVarer" asp-route-Code="@item.ButiksNavn">Butikkens Varer</a> |
-                    <a asp-page="DeleteButik" asp-route-Code="@item.Lokation">Slet denne butik</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.ButiksNavn
+            </td>
+            <td>
+                @item.Lokation
+            </td>
+            <td>
+                <a asp-page="ButiksVarer" asp-route-Code="@item.ButiksNavn">Butikkens Varer</a> |
+                <form method="post">
+                    <button>
+                        <a>Slet denne butik</a>
+                    </button>
+                <input type="hidden" name="butiksNavn" value="@item.ButiksNavn" />
+                </form>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

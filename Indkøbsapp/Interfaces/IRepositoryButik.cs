@@ -13,5 +13,6 @@ namespace Indkøbsapp.Interfaces
         public string Lokation { get; set; }
         List<Butik> GetAllButikker();
         void AddButik(Butik bk);
+        void DeleteButik(Butik db);
     }
 }

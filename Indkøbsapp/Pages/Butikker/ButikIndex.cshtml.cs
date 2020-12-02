@@ -22,6 +22,11 @@ namespace Indkøbsapp.Pages.Butikker
             Butikker = repo.GetAllButikker();
             return Page();
         }
+        public IActionResult OnPost(string butiksNavn)
+        {
+            repo.DeleteButik(butiksNavn);
+            return Page();
+        }
     }
 }
 
