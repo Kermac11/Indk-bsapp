@@ -9,6 +9,6 @@
         public string Navn { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
-        public string Billede { get; set; }
+        public string Billede { get; set; } // validation her, [required] og længde og boundaries, billede skal ikke være en string
     }
 }

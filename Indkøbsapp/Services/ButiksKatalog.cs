@@ -129,6 +129,7 @@ namespace Indkøbsapp.Services
                         va.Price = vare.Price;
                         va.Description = vare.Description;
                         va.TypeVare = vare.TypeVare;
+                        va.Billede = vare.Billede;
                     }
                     varer.Add(va);
                 }
