@@ -19,7 +19,6 @@ namespace Indkøbsapp.Pages.Brugere
         public BrugerSideModel(IBrugerKatalog list)
         {
             Users = list;
-
         }
         public void OnGet()
         {
