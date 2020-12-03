@@ -13,12 +13,12 @@ namespace Indkøbsapp.Pages.Butikker
 {
     public class CreateButikModel : PageModel
     {
-        private FakeButikRepository fbp;
+        private IRepositoryButik fbp;
 
         [BindProperty]
         public Butik Butik { get; set; }
 
-        public CreateButikModel(FakeButikRepository repository)
+        public CreateButikModel(IRepositoryButik repository)
         {
             fbp = repository;
         }

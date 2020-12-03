@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Indkøbsapp.Interfaces
 {
-    interface IRepositoryButik
+    public interface IRepositoryButik
     {
         
-        public string ButiksNavn { get; set; }
-        public string Lokation { get; set; }
         List<Butik> GetAllButikker();
         void AddButik(Butik bk);
         void DeleteButik(Butik db);

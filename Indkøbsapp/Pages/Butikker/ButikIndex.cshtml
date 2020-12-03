@@ -10,7 +10,7 @@
 </p>
 <div>
     <ul>
-        <li> There are @Model.Butikker.Count butikker</li>
+        <li> There are @Model.repo.GetAllButikker().Count butikker</li>
     </ul>
 </div>
 
@@ -26,7 +26,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Butikker)
+        @foreach (var item in Model.repo.GetAllButikker())
         {
         <tr>
             <td>
@@ -36,8 +36,8 @@
                 @item.Lokation
             </td>
             <td>
-                <a asp-page="ButiksVarer" asp-route-Code="@item.ButiksNavn">Butikkens Varer</a> |
-                <form method="post">
+                 <a asp-page="ButikkensVarer" asp-route-Code="@item.ButiksNavn">Butikkens Varer</a> |               
+                 <form method="post">
                     <button>
                         <a>Slet denne butik</a>
                     </button>
