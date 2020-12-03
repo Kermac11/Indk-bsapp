@@ -4,7 +4,7 @@ using RazorPagesEventMakerIC.Helpers;
 
 namespace Indkøbsapp.Interfaces
 {
-   public interface IButiksKatalog
+   public interface IButiksVareKatalog
    {
         public IButikItems FindItem(int id);
         public void AddItem(ButikItems item);

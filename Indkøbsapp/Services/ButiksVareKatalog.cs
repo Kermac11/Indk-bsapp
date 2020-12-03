@@ -6,7 +6,7 @@ using RazorPagesEventMakerIC.Helpers;
 
 namespace Indkøbsapp.Services
 {
-    public class ButiksKatalog : IButiksKatalog
+    public class ButiksVareKatalog : IButiksVareKatalog
     {
         private string filepath = @"Data\JsonVarer.json";
         

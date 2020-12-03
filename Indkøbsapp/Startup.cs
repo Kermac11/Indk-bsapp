@@ -29,7 +29,7 @@ namespace Indkøbsapp
             services.AddSingleton<IBrugerKatalog, BrugerKatalog>();
             services.AddRazorPages();
             services.AddSingleton<FakeButikRepository>();
-            services.AddSingleton<IButiksKatalog, ButiksKatalog>();
+            services.AddSingleton<IButiksVareKatalog, ButiksVareKatalog>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,12 +13,12 @@ namespace Indkøbsapp.Pages
 {
     public class ButikItemsModel : PageModel
     {
-        public IButiksKatalog repo;
+        public IButiksVareKatalog repo;
         public List<IButikItems> Items { get; set; }
 
         [BindProperty] public string Criteria { get; set; }
 
-        public ButikItemsModel(IButiksKatalog varer)
+        public ButikItemsModel(IButiksVareKatalog varer)
         {
             repo = varer;
         }

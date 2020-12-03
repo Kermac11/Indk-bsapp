@@ -11,12 +11,12 @@ namespace Indkøbsapp.Pages.Items
 {
     public class EditItemModel : PageModel
     {
-        private IButiksKatalog repo;
+        private IButiksVareKatalog repo;
 
         [BindProperty]
         public ButikItems Item { get; set; }
 
-        public EditItemModel(IButiksKatalog repository)
+        public EditItemModel(IButiksVareKatalog repository)
         {
             repo = repository;
         }
