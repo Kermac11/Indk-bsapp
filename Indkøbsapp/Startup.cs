@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Indkøbsapp.Catalog;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Builder;
@@ -25,7 +26,9 @@ namespace Indkøbsapp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IBrugerKatalog, BrugerKatalog>();
             services.AddRazorPages();
+            services.AddSingleton<FakeButikRepository>();
             services.AddSingleton<IButiksKatalog, ButiksKatalog>();
         }
 
