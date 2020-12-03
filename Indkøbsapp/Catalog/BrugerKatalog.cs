@@ -14,6 +14,7 @@ namespace Indkøbsapp.Catalog
     public class BrugerKatalog : IBrugerKatalog
     {
         private string filepath = @"Data\BrugerKatalog.json";
+        private string filepathAdmin = @"Data\AdminKatalog.json";
 
         public BrugerKatalog()
         {
@@ -23,13 +24,19 @@ namespace Indkøbsapp.Catalog
         public void CreateUser(Bruger user)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
+            Dictionary<string, Admin> _admins = GetAllAdmins();
             int newUserId = _users.Count;
-            if (!_users.ContainsKey(user.UserName))
+            if (!_admins.ContainsKey(user.UserName))
             {
-                user.CreationDate = DateTime.Now;
-                _users.Add(user.UserName, user);
+                if (!_users.ContainsKey(user.UserName))
+                {
+                    user.ID = _users.Count + 1;
+                    user.CreationDate = DateTime.Now;
+                    _users.Add(user.UserName, user);
+                }
+
+                JsonFileWriter.WriteToJson(_users, filepath);
             }
-            JsonFileWriter.WriteToJson(_users, filepath);
         }
 
         public string UserName { get; set; }
@@ -38,6 +45,12 @@ namespace Indkøbsapp.Catalog
         public Bruger SearchUser(string username)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
+            Dictionary<string, Admin> _admins = GetAllAdmins();
+            if (_admins.ContainsKey(username))
+            {
+                return _admins[username];
+
+            }
             if (_users.ContainsKey(username))
             {
                 return _users[username];
@@ -48,6 +61,13 @@ namespace Indkøbsapp.Catalog
 
        public Bruger SearchUserId(int id)
         {
+            foreach (Admin user in GetAllAdmins().Values)
+            {
+                if (user.ID == id)
+                {
+                    return user;
+                }
+            }
             foreach (Bruger user in GetAllUsers().Values)
             {
                 if (user.ID == id)
@@ -129,6 +149,16 @@ namespace Indkøbsapp.Catalog
         public Bruger CheckPassword(Bruger bruger)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
+            Dictionary<string, Admin> _admins = GetAllAdmins();
+
+            if (_admins.ContainsKey(bruger.UserName))
+            {
+                if (_admins[bruger.UserName].PassWord == bruger.PassWord)
+                {
+                    return _admins[bruger.UserName];
+                }
+
+            }
             if (_users.ContainsKey(bruger.UserName))
             {
                 if (_users[bruger.UserName].PassWord == bruger.PassWord)
@@ -153,7 +183,12 @@ namespace Indkøbsapp.Catalog
 
         public Dictionary<string, Bruger> GetAllUsers()
         {
-             return JsonFileReader.ReadJson(filepath);
+            return JsonFileReader.ReadJson(filepath);
+        }
+
+        public Dictionary<string, Admin> GetAllAdmins()
+        {
+            return JsonAdminFileReader.ReadJson(filepathAdmin);
         }
     }
 }

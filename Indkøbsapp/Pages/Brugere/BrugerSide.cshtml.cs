@@ -19,15 +19,23 @@ namespace Indkøbsapp.Pages.Brugere
         public BrugerSideModel(IBrugerKatalog list)
         {
             Users = list;
+
         }
         public void OnGet()
         {
+         
         }
 
         public void OnGetBruger (string username)
         {
             Bruger = Users.SearchUser(username);
         }
+        
+        public void OnPostDelete(string deleteuser, string currentuser)
+        {
+            Users.DeleteUserName(deleteuser);
+            OnGetBruger(currentuser);
 
+        }
     }
 }
