@@ -22,7 +22,6 @@ namespace Indkøbsapp.Pages
         {
             repo = varer;
         }
-        //[required] og sådan noget
         public void OnGet()
         {
             Items = repo.FilterItems(Criteria);
