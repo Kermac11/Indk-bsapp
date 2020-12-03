@@ -56,16 +56,20 @@ namespace Indkøbsapp.Services
                 varer.Add(vare);
             }
 
+            
             if (GetAllButikVarer().ContainsKey(id))
             {
+                ButikItems vareToDelete = null;
                 foreach (var item in varer)
                 {
                     if (item.ID == id)
                     {
-                        varer.Remove(item);
+                        vareToDelete = item;
                     }
                 }
+                varer.Remove(vareToDelete);
             }
+            
             JsonVareWriter.WriteToJson(varer, filepath);
         }
 
