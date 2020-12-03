@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Indkøbsapp.Helpers;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
 using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Session;
 
 namespace Indkøbsapp.Pages.Brugere
 {
@@ -31,6 +34,7 @@ namespace Indkøbsapp.Pages.Brugere
             Bruger check = Users.CheckPassword(Bruger);
             if (check != null)
             {
+                SharedMemory.LoggedInUser = check;
                 return RedirectToPage("BrugerSide", "Bruger", new { username = check.UserName });
             }
             return Page();

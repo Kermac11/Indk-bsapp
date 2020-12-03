@@ -1,8 +1,10 @@
 ﻿@page
+@using Indkøbsapp.Helpers
 @using Indkøbsapp.Models
 @model Indkøbsapp.Pages.Brugere.BrugerSideModel
 @{
 }
+
 @if (!(Model.Bruger is Admin))
 {
     <a asp-page="BrugerEdit" asp-route-bruger="@Model.Bruger.UserName">Redigere Oplysninger</a>
