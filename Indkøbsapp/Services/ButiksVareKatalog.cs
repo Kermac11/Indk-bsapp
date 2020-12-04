@@ -22,7 +22,7 @@ namespace Indkøbsapp.Services
             }
             return result;
         }
-        public IButikItems FindItem(int id)
+        public ButikItems FindItem(int id)
         {
             if (GetAllButikVarer().ContainsKey(id))
             {
@@ -95,9 +95,9 @@ namespace Indkøbsapp.Services
         //    return dl;
         //}Ved ikke hvad den her skal gøre
 
-        public List<IButikItems> FilterItems(string criteria)
+        public List<ButikItems> FilterItems(string criteria)
         {
-            List<IButikItems> dl = new List<IButikItems>();
+            List<ButikItems> dl = new List<ButikItems>();
             if (criteria == "" || criteria == null)
             {
                 foreach (var item in GetAllButikVarer().Values)
@@ -108,7 +108,7 @@ namespace Indkøbsapp.Services
             else
             {
                 string cl = criteria.ToLower();
-                foreach (IButikItems item in GetAllButikVarer().Values)
+                foreach (ButikItems item in GetAllButikVarer().Values)
                 {
                     if (item.Navn.ToLower().StartsWith(cl))
                     {
@@ -118,7 +118,7 @@ namespace Indkøbsapp.Services
             }
             return dl;
         }
-        public void EditVare(IButikItems vare)
+        public void EditVare(ButikItems vare)
         {
             if (vare != null)
             {

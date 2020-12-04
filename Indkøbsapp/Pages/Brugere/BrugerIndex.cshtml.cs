@@ -10,6 +10,7 @@ using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Session;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Indkøbsapp.Pages.Brugere
 {
@@ -36,7 +37,10 @@ namespace Indkøbsapp.Pages.Brugere
             Bruger check = Users.CheckPassword(Bruger);
             if (check != null)
             {
-                if (!( Bruger is Admin))
+                if ( Bruger is Admin)
+                {
+                }
+                else
                 {
                     SharedMemory.ActiveOrdrer = Ordres.FindOrder(check.UserName);
                     if (SharedMemory.ActiveOrdrer == null)
@@ -44,9 +48,11 @@ namespace Indkøbsapp.Pages.Brugere
                         Ordres.CreateOrder(check.UserName);
                     }
                     SharedMemory.ActiveOrdrer.Buyer = check;
+
+                    SharedMemory.LoggedInUser = check;
+                    return RedirectToPage("BrugerSide", "Bruger", new { username = check.UserName });
                 }
-                SharedMemory.LoggedInUser = check;
-                return RedirectToPage("BrugerSide", "Bruger", new { username = check.UserName });
+        
             }
             return Page();
         }

@@ -13,7 +13,7 @@ namespace Indkøbsapp.Models
         public int ID { get; set; }
         public double Price { get; set; }
         public int AntalVarerIOdrer { get; set; }
-        public void AddItem(IButikItems item)
+        public void AddItem(ButikItems item)
         {
             bool exist = false;
             foreach (OrderItem i in Order)

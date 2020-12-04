@@ -4,8 +4,6 @@
 @model Indkøbsapp.Pages.Brugere.BrugerSideModel
 @{
 }
-
-<p>@SharedMemory.ActiveOrdrer.Buyer.UserName</p>
 @if (!(Model.Bruger is Admin))
 {
     <a asp-page="BrugerEdit" asp-route-bruger="@Model.Bruger.UserName">Redigere Oplysninger</a>
