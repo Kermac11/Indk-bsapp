@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Indkøbsapp.Interfaces;
 
 namespace Indkøbsapp.Models
 {
     public class OrderItem : ButikItems
     {
-        public OrderItem(ButikItems item)
+        public OrderItem(IButikItems item)
         {
             this.Price = item.Price;
             this.Billede = item.Billede;
