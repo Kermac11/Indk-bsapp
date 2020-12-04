@@ -2,67 +2,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Indkøbsapp.Helpers;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
 using Indkøbsapp.Services;
+using RazorPagesEventMaker.Helpers;
 
 namespace Indkøbsapp.Catalog
 {
     public class OrderKatalog : IOrdrerKatalog
     {
-        private Dictionary<int, Ordrer> _katalog;
-        public Dictionary<int, Ordrer> Katalog { get; set; }
+        private string filepath = @"Data\JsonOrdrer.json";
 
         public OrderKatalog()
         {
-            Katalog = new Dictionary<int, Ordrer>();
+           
         }
 
-      
 
-        public void CreateOrder(Ordrer order)
+
+        public void CreateOrder(string username)
         {
-            if (Katalog.Count == 0)
+            Dictionary<string,Ordrer> Katalog = new Dictionary<string, Ordrer>();
+            if (!Katalog.ContainsKey(username))
             {
-                order.ID = 0;
+                Katalog.Add(username, new Ordrer());
+                SharedMemory.ActiveOrdrer = Katalog[username];
+                JsonOrdrerKatalogFileWriter.WriteToJson(Katalog, filepath);
             }
-            else
-            {
-                order.ID = Katalog.Count + 1;
-            }
-            Katalog.Add(order.ID,order);
         }
 
-        public Ordrer FindOrder(int id)
+        public Ordrer FindOrder(string username)
         {
-            if (Katalog.ContainsKey(id))
+            Dictionary<string, Ordrer> Katalog = new Dictionary<string, Ordrer>();
+            if (Katalog.ContainsKey(username))
             {
-                return Katalog[id];
+                return Katalog[username];
             }
 
             return null;
+
         }
 
-        public void DeleteOrder(int id)
+        public void DeleteOrder(string username)
         {
-            if (Katalog.ContainsKey(id))
+            Dictionary<string, Ordrer> Katalog = new Dictionary<string, Ordrer>();
+            if (Katalog.ContainsKey(username))
             {
-                Katalog.Remove(id);
+                Katalog.Remove(username);
+                JsonOrdrerKatalogFileWriter.WriteToJson(Katalog, filepath);
             }
         }
 
-        public List<Ordrer> FindBrugereOrder(Bruger user)
+        public Dictionary<string, Ordrer> GetAllOrdrer()
         {
-            List<Ordrer> el = new List<Ordrer>();
-            foreach (Ordrer item in Katalog.Values)
-            {
-                if (item.Buyer == user)
-                {
-                    el.Add(item);
-                }
-            }
-
-            return el;
+            return JsonOrdrerKatalogFileReader.ReadJson(filepath);
         }
     }
 }

@@ -18,10 +18,12 @@ namespace Indkøbsapp.Pages.Brugere
         [BindProperty]
         public Bruger Bruger { get; set; }
         public IBrugerKatalog Users { get; }
+        public IOrdrerKatalog Ordres { get; }
 
-        public BrugerIndexModel(IBrugerKatalog users)
+        public BrugerIndexModel(IBrugerKatalog users, IOrdrerKatalog ordres)
         {
             Users = users;
+            Ordres = ordres;
         }
 
         public void OnGet()
@@ -34,6 +36,15 @@ namespace Indkøbsapp.Pages.Brugere
             Bruger check = Users.CheckPassword(Bruger);
             if (check != null)
             {
+                if (!( Bruger is Admin))
+                {
+                    SharedMemory.ActiveOrdrer = Ordres.FindOrder(check.UserName);
+                    if (SharedMemory.ActiveOrdrer == null)
+                    {
+                        Ordres.CreateOrder(check.UserName);
+                    }
+                    SharedMemory.ActiveOrdrer.Buyer = check;
+                }
                 SharedMemory.LoggedInUser = check;
                 return RedirectToPage("BrugerSide", "Bruger", new { username = check.UserName });
             }
