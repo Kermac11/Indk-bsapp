@@ -15,10 +15,10 @@ namespace Indkøbsapp.Pages.Ordrers
     {
         private IOrdrerKatalog _ordrers;
         private IBrugerKatalog _users;
-        private IButiksKatalog _katalog;
+        private IButiksVareKatalog _katalog;
         [BindProperty]
         public Ordrer Odrer { get; set; }
-        public IndexModel(IOrdrerKatalog ordrer, IBrugerKatalog users, IButiksKatalog butiksKatalog)
+        public IndexModel(IOrdrerKatalog ordrer, IBrugerKatalog users, IButiksVareKatalog butiksKatalog)
         {
             _ordrers = ordrer;
             _users = users;
