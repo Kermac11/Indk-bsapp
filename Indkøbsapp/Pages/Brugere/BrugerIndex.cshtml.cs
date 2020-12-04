@@ -46,9 +46,9 @@ namespace Indkøbsapp.Pages.Brugere
                     if (SharedMemory.ActiveOrdrer == null)
                     {
                         Ordres.CreateOrder(check.UserName);
+                        SharedMemory.ActiveOrdrer.Buyer = check;
                     }
-                    SharedMemory.ActiveOrdrer.Buyer = check;
-
+                    
                     SharedMemory.LoggedInUser = check;
                     return RedirectToPage("BrugerSide", "Bruger", new { username = check.UserName });
                 }
