@@ -10,8 +10,8 @@ namespace Indkøbsapp.Pages.Items
 {
     public class DeleteItemModel : PageModel
     {
-        private IButiksKatalog repo;
-        public DeleteItemModel(IButiksKatalog repository)
+        private IButiksVareKatalog repo;
+        public DeleteItemModel(IButiksVareKatalog repository)
         {
             repo = repository;
         }
