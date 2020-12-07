@@ -28,9 +28,10 @@ namespace Indkøbsapp.Pages.Ordrers
         {
         }
 
-        public void OnPostDelete(int id)
+        public IActionResult OnPostDelete(int id)
         {
             SharedMemory.ActiveOrdrer.DeleteItem(id);
+            return Page();
         }
         public IActionResult OnPostAdd(int id)
         {

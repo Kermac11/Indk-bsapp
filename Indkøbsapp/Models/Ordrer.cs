@@ -13,6 +13,11 @@ namespace Indkøbsapp.Models
         public int ID { get; set; }
         public double Price { get; set; }
         public int AntalVarerIOdrer { get; set; }
+
+        public Ordrer()
+        {
+            Order = new List<OrderItem>();
+        }
         public void AddItem(ButikItems item)
         {
             bool exist = false;

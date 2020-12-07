@@ -4,7 +4,7 @@
 @model Indkøbsapp.Pages.ButikItemsModel
 @inject IButiksVareKatalog ButiksVareKatalog
 @{
-ViewData["Title"] = "ButikItems";
+    ViewData["Title"] = "ButikItems";
 }
 
 <h1>ButikItems</h1>
@@ -27,30 +27,36 @@ ViewData["Title"] = "ButikItems";
 </p>
 
 
-<p>Antal elementer i ButiksKatalog: @Model.Items.Count</p>
+<p>Antal elementer i ButiksKatalog: @Model.repo.GetAllButikVarer().Count</p>
 <table class="table">
     <thead>
-    <tr>
-        <th>Id</th>
-        <th>Navn</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Billede</th>
-    </tr>
+        <tr>
+            <th>Id</th>
+            <th>Navn</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Billede</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td> @item.ID</td>
-            <td> @item.Navn</td>
-            <td> @item.Description</td>
-            <td> @item.Price</td>
-            <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
-            <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
-        </tr>
+        @foreach (var item in Model.repo.GetAllButikVarer().Values)
+        {
+            <tr>
+                <td> @item.ID</td>
+                <td> @item.Navn</td>
+                <td> @item.Description</td>
+                <td> @item.Price</td>
+                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
+                <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
+                <td>
+                    <form method="post" asp-page-handler="add">
+                        <button class="btn btn-primary">Add</button>
+                        <input type="hidden" name="id" value="@item.ID" />
+                    </form>
+                </td>
+            </tr>
 
-    }
+        }
     </tbody>
 </table>
 
@@ -68,17 +74,17 @@ ViewData["Title"] = "ButikItems";
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.repo.GetAllButikVarer().Values)
-    {
-        <tr>
-            <td> @item.ID</td>
-            <td> @item.Navn</td>
-            <td> @item.Description</td>
-            <td> @item.Price</td>
-            <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
-            <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
-        </tr>
+        @foreach (var item in Model.repo.GetAllButikVarer().Values)
+        {
+            <tr>
+                <td> @item.ID</td>
+                <td> @item.Navn</td>
+                <td> @item.Description</td>
+                <td> @item.Price</td>
+                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
+                <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
+            </tr>
 
-    }
+        }
     </tbody>
 </table>

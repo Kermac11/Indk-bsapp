@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using Indkøbsapp.Catalog;
+using Indkøbsapp.Helpers;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
 using Indkøbsapp.Services;
@@ -31,6 +32,12 @@ namespace Indkøbsapp.Pages
         public void OnPost()
         {
             Items = repo.FilterItems(Criteria);
+        }
+
+        public void OnPostAdd(int id)
+        {
+            SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
+
         }
     }
 }
