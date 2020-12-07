@@ -37,7 +37,6 @@ namespace Indkøbsapp.Pages
         public void OnPostAdd(int id)
         {
             SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
-
         }
     }
 }
