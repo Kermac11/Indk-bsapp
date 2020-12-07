@@ -4,11 +4,12 @@
 @model Indkøbsapp.Pages.Ordrers.IndexModel
 @{
 }
+<h1>@SharedMemory.LoggedInUser.UserName</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Bruger
+                Antal
             </th>
             <th>
                 Varenavn
@@ -26,9 +27,11 @@
     </thead>
     <tbody>
         <tr>
-            <td>@Model.Order.Buyer.UserName</td>
             @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
             {
+                <td>
+                    @item.Amount
+                </td>
                 <td>
                     @item.Navn
                 </td>
@@ -57,3 +60,4 @@
         </tr>
     </tbody>
 </table>
+<div class="mr-auto">@SharedMemory.ActiveOrdrer.Price</div>

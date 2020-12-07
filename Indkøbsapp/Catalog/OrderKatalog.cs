@@ -20,24 +20,27 @@ namespace Indkøbsapp.Catalog
         }
 
 
-
         public void CreateOrder(string username)
         {
-            Dictionary<string,Ordrer> Katalog = new Dictionary<string, Ordrer>();
+            Dictionary<string, Ordrer> Katalog = GetAllOrdrer();
             if (!Katalog.ContainsKey(username))
             {
-                Katalog.Add(username, new Ordrer());
-                SharedMemory.ActiveOrdrer = Katalog[username];
+                Ordrer p = new Ordrer();
+                Katalog.Add(username,p);
                 JsonOrdrerKatalogFileWriter.WriteToJson(Katalog, filepath);
             }
         }
 
         public Ordrer FindOrder(string username)
         {
-            Dictionary<string, Ordrer> Katalog = new Dictionary<string, Ordrer>();
+            Dictionary<string, Ordrer> Katalog = GetAllOrdrer();
             if (Katalog.ContainsKey(username))
             {
                 return Katalog[username];
+            }
+            else
+            {
+                CreateOrder(username);
             }
 
             return null;
@@ -46,7 +49,7 @@ namespace Indkøbsapp.Catalog
 
         public void DeleteOrder(string username)
         {
-            Dictionary<string, Ordrer> Katalog = new Dictionary<string, Ordrer>();
+            Dictionary<string, Ordrer> Katalog = GetAllOrdrer();
             if (Katalog.ContainsKey(username))
             {
                 Katalog.Remove(username);

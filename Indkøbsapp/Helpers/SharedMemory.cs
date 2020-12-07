@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Indkøbsapp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 
 namespace Indkøbsapp.Helpers

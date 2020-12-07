@@ -39,6 +39,7 @@ namespace Indkøbsapp.Pages.Brugere
             {
                 if ( Bruger is Admin)
                 {
+                    SharedMemory.LoggedInUser = check;
                 }
                 else
                 {
@@ -46,9 +47,9 @@ namespace Indkøbsapp.Pages.Brugere
                     if (SharedMemory.ActiveOrdrer == null)
                     {
                         Ordres.CreateOrder(check.UserName);
-                        SharedMemory.ActiveOrdrer.Buyer = check;
+                        SharedMemory.ActiveOrdrer = Ordres.FindOrder(check.UserName);
                     }
-                    
+                   
                     SharedMemory.LoggedInUser = check;
                     return RedirectToPage("BrugerSide", "Bruger", new { username = check.UserName });
                 }

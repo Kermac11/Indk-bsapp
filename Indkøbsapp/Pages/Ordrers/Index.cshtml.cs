@@ -16,8 +16,7 @@ namespace Indkøbsapp.Pages.Ordrers
         private IOrdrerKatalog _ordrers;
         private IBrugerKatalog _users;
         private IButiksVareKatalog _katalog;
-        [BindProperty]
-        public Ordrer Order { get; set; }
+        public Ordrer Odrer { get; set; }
         public IndexModel(IOrdrerKatalog ordrer, IBrugerKatalog users, IButiksVareKatalog butiksKatalog)
         {
             _ordrers = ordrer;
@@ -29,9 +28,10 @@ namespace Indkøbsapp.Pages.Ordrers
         {
         }
 
-        public void OnPostDelete(int id)
+        public IActionResult OnPostDelete(int id)
         {
             SharedMemory.ActiveOrdrer.DeleteItem(id);
+            return Page();
         }
         public IActionResult OnPostAdd(int id)
         {

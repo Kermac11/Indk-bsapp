@@ -9,5 +9,6 @@ namespace Indkøbsapp.Services
         public void CreateOrder(string username);
         public Ordrer FindOrder(string username);
         public void DeleteOrder(string username);
+        Dictionary<string, Ordrer> GetAllOrdrer();
     }
 }
