@@ -15,7 +15,7 @@ namespace Indkøbsapp.Models
         {
             get
             {
-                return Price;
+                return CalculatePrice();
             }
             set{}
         }
@@ -69,12 +69,13 @@ namespace Indkøbsapp.Models
 
         public double CalculatePrice()
         {
+            double price = 0;
             foreach (OrderItem item in Order)
             {
-                Price = item.Amount * item.Price;
+                price = item.Amount * item.Price;
             }
 
-            return Price;
+            return price;
         }
     }
 }
