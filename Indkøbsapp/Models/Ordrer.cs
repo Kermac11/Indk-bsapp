@@ -13,11 +13,8 @@ namespace Indkøbsapp.Models
         public int ID { get; set; }
         public double Price
         {
-            get
-            {
-                return CalculatePrice();
-            }
-            set{}
+            get;
+            set;
         }
         public int AntalVarerIOdrer { get; set; }
 
@@ -33,6 +30,7 @@ namespace Indkøbsapp.Models
                 if (i.ID == item.ID)
                 {
                     i.Amount += 1;
+                    i.Price += 1;
                     AntalVarerIOdrer += 1;
                     exist = true;
                 }
@@ -42,6 +40,7 @@ namespace Indkøbsapp.Models
             {
                 OrderItem p = new OrderItem(item);
                 p.Amount = 1;
+                p.Price += 1;
                 AntalVarerIOdrer += 1;
                 Order.Add(p);
             }
@@ -57,12 +56,14 @@ namespace Indkøbsapp.Models
                 {
                     check = item;
                     item.Amount -= 1;
+                    Price -= item.Price;
                     AntalVarerIOdrer -= 1;
                 }
             }
 
             if (check != null && check.Amount == 1)
             {
+                Price -= check.Price;
                 Order.Remove(check);
             }
         }

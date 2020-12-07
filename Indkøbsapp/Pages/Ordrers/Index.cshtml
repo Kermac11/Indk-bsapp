@@ -26,9 +26,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
-            {
+
+        @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
+        {
+            <tr>
                 <td>
                     @item.Amount
                 </td>
@@ -56,8 +57,9 @@
                         <input type="hidden" name="id" value="@item.ID">
                     </form>
                 </td>
-            }
-        </tr>
+            </tr>
+        }
+
     </tbody>
 </table>
 <div class="mr-auto">@SharedMemory.ActiveOrdrer.Price</div>
