@@ -1,4 +1,59 @@
 ﻿@page
+@using Indkøbsapp.Helpers
+@using Indkøbsapp.Models
 @model Indkøbsapp.Pages.Ordrers.IndexModel
 @{
 }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Bruger
+            </th>
+            <th>
+                Varenavn
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Pris
+            </th>
+            <th>
+                Billede
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Odrer.Buyer.UserName</td>
+            @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
+            {
+                <td>
+                    @item.Navn
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    <img src="~/Img/@item.Billede" width="60" height="70">
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="add">
+                        <button class="btn btn-primary">Lig til</button>
+                        <input type="hidden" name="id" value="@item.ID">
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="delete">
+                        <button class="btn btn-primary">Fjern</button>
+                        <input type="hidden" name="id" value="@item.ID">
+                    </form>
+                </td>
+            }
+        </tr>
+    </tbody>
+</table>
