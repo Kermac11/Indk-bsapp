@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using Indkøbsapp.Catalog;
+using Indkøbsapp.Helpers;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
 using Indkøbsapp.Services;
@@ -23,14 +24,27 @@ namespace Indkøbsapp.Pages
         {
             repo = varer;
         }
+
+
+        //Admin knappperne skal gemmes hvis man ikke er admin
+        //
+
+
+
+
         public void OnGet()
         {
             Items = repo.FilterItems(Criteria);
         }
 
-        public void OnPost()
+        public void OnPostFilter()
         {
             Items = repo.FilterItems(Criteria);
+        }
+
+        public void OnPostAdd(int id)
+        {
+            SharedMemory.ActiveOrdrer.AddItem(repo.GetAllButikVarer()[id]);
         }
     }
 }
