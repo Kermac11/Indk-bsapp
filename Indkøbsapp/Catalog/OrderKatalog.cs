@@ -20,7 +20,6 @@ namespace Indkøbsapp.Catalog
         }
 
 
-
         public void CreateOrder(string username)
         {
             Dictionary<string,Ordrer> Katalog = new Dictionary<string, Ordrer>();

@@ -39,9 +39,6 @@ namespace Indkøbsapp.Catalog
             }
         }
 
-        public string UserName { get; set; }
-
-
         public Bruger SearchUser(string username)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
