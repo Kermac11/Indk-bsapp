@@ -1,60 +1,121 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
+using Indkøbsapp.Services;
+using RazorPagesEventMaker.Helpers;
 
 namespace Indkøbsapp.Catalog
 {
     public class BrugerKatalog : IBrugerKatalog
     {
-        private Dictionary<int,IBruger> users { get; }
+        private string filepath = @"Data\BrugerKatalog.json";
 
         public BrugerKatalog()
         {
-            users=new Dictionary<int, IBruger>();
         }
 
-        public void AddUser()
+
+        public void CreateUser(Bruger user)
+        {
+            Dictionary<int, Bruger> _users = GetAllUsers();
+            int newUserId = _users.Count;
+            if (!_users.ContainsKey(user.ID))
+            {
+                _users.Add(user.ID, user);
+            }
+            else
+            {
+                user.ID = newUserId;
+                _users.Add(user.ID, user);
+            }
+
+            JsonFileWriter.WriteToJson(_users, filepath);
+        }
+
+        public string UserName { get; set; }
+
+        public IBruger SearchUser(int id)
+        {
+            Dictionary<int, Bruger> _users = GetAllUsers();
+            if (_users.ContainsKey(id))
+            {
+                return _users[id];
+            }
+
+            return null;
+        }
+
+        public void UpdateUser(Bruger bruger)
+        {
+            Dictionary<int, Bruger> _users = GetAllUsers();
+            if (bruger != null)
+            {
+                _users[bruger.ID].Adresse = bruger.Adresse;
+                _users[bruger.ID].Navn = bruger.Navn;
+            }
+            JsonFileWriter.WriteToJson(_users, filepath);
+        }
+
+        public void DeleteUserName(string username)
         {
             throw new NotImplementedException();
         }
 
-        public IBruger SearchUser(int id)
+        public void DeleteUserId(int id)
         {
-            return users[id];
-        }
-
-        public void UpdateUser(IBruger bruger)
-        {
-            if (bruger != null)
-            {
-                users[bruger.ID].Adresse = bruger.Adresse;
-                users[bruger.ID].Navn = bruger.Navn;
-            }
+            throw new NotImplementedException();
         }
 
         public void DeleteUser(int id)
         {
-            users.Remove(id);
+            Dictionary<int, Bruger> _users = GetAllUsers();
+            if (_users.ContainsKey(id))
+            {
+                _users.Remove(id);
+            }
+            JsonFileWriter.WriteToJson(_users, filepath);
         }
 
-        public List<IBruger> FilteredUsers(string criteria)
+        public Dictionary<int, Bruger> FilteredUsers(string criteria)
         {
-            List<IBruger> emptyList = new List<IBruger>();
-            string lcriteria = criteria.ToLower();
-
-            foreach (IBruger user in users.Values)
+            Dictionary<int, Bruger> _users = GetAllUsers();
+            Dictionary<int, Bruger> emptyList = new Dictionary<int, Bruger>();
+            criteria = criteria.ToLower();
+            foreach (Bruger user in _users.Values)
             {
-                string lName = user.Navn.ToLower();
-                string lAdress = user.Adresse.ToLower();
-                if (lName.Contains(lcriteria) || lAdress.Contains(lcriteria))
+                if (user.Navn.ToLower().Contains(criteria) || user.Adresse.ToLower().Contains(criteria))
                 {
-                    emptyList.Add(user);
+                    emptyList.Add(user.ID, user);
+                }
+
+            }
+
+            return emptyList;
+        }
+
+        public Bruger CheckPassword(Bruger bruger)
+        {
+            Dictionary<int, Bruger> _users = GetAllUsers();
+            foreach (Bruger user in _users.Values)
+            {
+                if (user.Navn == bruger.Navn && user.PassWord == bruger.PassWord)
+                {
+                    return user;
+
                 }
             }
-            return emptyList;
+
+            return null;
+        }
+
+        public Dictionary<int, Bruger> GetAllUsers()
+        {
+             return JsonFileReader.ReadJson(filepath);
         }
     }
 }

@@ -1,0 +1,18 @@
+﻿@page
+@model Indkøbsapp.Pages.Brugere.BrugerSideModel
+@{
+}
+<p>
+    @Model.Bruger.Navn
+</p>
+
+<p>
+    @Model.Bruger.Adresse
+</p>
+
+@if (Model.Bruger.Leverandør == true)
+{
+    <p>
+        Jeg er leverandør
+    </p>
+}
