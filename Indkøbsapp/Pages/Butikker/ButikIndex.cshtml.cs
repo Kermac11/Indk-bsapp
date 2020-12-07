@@ -22,7 +22,7 @@ namespace Indkøbsapp.Pages.Butikker
         }
         public IActionResult OnPost(string butiksNavn)
         {
-            //repo.DeleteButik(butiksNavn);
+            repo.DeleteButik(butiksNavn);
             return Page();
         }
     }

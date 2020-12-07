@@ -11,6 +11,7 @@ namespace Indkøbsapp.Interfaces
         
         List<Butik> GetAllButikker();
         void AddButik(Butik bk);
-        void DeleteButik(Butik db);
+        void DeleteButik(string butiksNavn);
+        Butik GetButik(string gb);
     }
 }

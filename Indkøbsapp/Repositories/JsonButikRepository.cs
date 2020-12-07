@@ -19,7 +19,7 @@ namespace Indkøbsapp.Repositories
         }
         public void AddButik(Butik butik)
         {
-            List<Butik> butikker = GetAllButikker().ToList();
+            List<Butik> butikker = GetAllButikker();
             butikker.Add(butik);
             JsonButikFileWritter.WriteToJsonButik(butikker, JsonFileName);
         }
@@ -37,9 +37,16 @@ namespace Indkøbsapp.Repositories
             return new Butik();
         }
 
-        public void DeleteButik(Butik db)
+        public void DeleteButik(string butiksNavn)
         {
-            throw new NotImplementedException();
+            List<Butik> butikker = GetAllButikker();
+            Butik foundButik = GetButik(butiksNavn);
+            if (foundButik != null)
+            {
+                butikker.Remove(foundButik);
+            }
+            JsonButikFileWritter.WriteToJsonButik(butikker, JsonFileName);
         }
+
     }
 }
