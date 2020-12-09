@@ -48,5 +48,22 @@ namespace Indkøbsapp.Repositories
             JsonButikFileWritter.WriteToJsonButik(butikker, JsonFileName);
         }
 
+        public List<string> GetAllButiksNames()
+        {
+            List<string> el = new List<string>();
+            foreach (Butik butik in GetAllButikker())
+            {
+                if (el.Contains(butik.ButiksNavn))
+                {
+                    
+                }
+                else
+                {
+                    el.Add(butik.ButiksNavn);
+                }
+            }
+            return el;
+        }
+
     }
 }

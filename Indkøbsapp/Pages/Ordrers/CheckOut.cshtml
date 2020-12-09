@@ -1,10 +1,14 @@
 ﻿@page
+@using System.Composition
 @using Indkøbsapp.Helpers
 @using Indkøbsapp.Models
-@model Indkøbsapp.Pages.Ordrers.IndexModel
+@model Indkøbsapp.Pages.Ordrers.CheckOutModel
 @{
 }
-<h1>@SharedMemory.LoggedInUser.UserName</h1>
+<h3>Navn:</h3>
+<h4>@SharedMemory.LoggedInUser.UserName</h4>
+<h3>Leverings Adresse:</h3>
+<h4>@SharedMemory.LoggedInUser.Adresse</h4>
 <table class="table">
     <thead>
     <tr>
@@ -26,7 +30,7 @@
     </tr>
     </thead>
     <tbody>
-
+    <tr>
     @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
     {
         <tr>
@@ -45,27 +49,8 @@
             <td>
                 <img src="~/images/@item.Billede" width="60" height="70">
             </td>
-            <td>
-                <form method="post" asp-page-handler="add">
-                    <button class="btn btn-primary">Lig til</button>
-                    <input type="hidden" name="id" value="@item.ID">
-                </form>
-            </td>
-            <td>
-                <form method="post" asp-page-handler="delete">
-                    <button class="btn btn-primary">Fjern</button>
-                    <input type="hidden" name="id" value="@item.ID">
-                </form>
-            </td>
         </tr>
     }
-
-    </tbody>
 </table>
 <h4>Pris:</h4>
-<div class="mr-auto">@SharedMemory.ActiveOrdrer.Price kr</div>
-
-<div class="text-center">
-    <a asp-page="/Ordrers/CheckOut" asp-route-username="@SharedMemory.LoggedInUser.UserName" class="btn btn-primary">Check Out</a>
-</div>
-
+<p>@SharedMemory.ActiveOrdrer.Price Kr</p>

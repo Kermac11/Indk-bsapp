@@ -1,3 +1,4 @@
+using Indkøbsapp.Helpers;
 using Indkøbsapp.Models;
 using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,7 @@ namespace Indkøbsapp.Pages.Brugere
 
             int checkInt = Users.GetAllUsers().Count;
             Users.CreateUser(Bruger);
+            SharedMemory.LoggedInUser = Bruger;
 
             if (Users.GetAllUsers().Count > checkInt)
             {

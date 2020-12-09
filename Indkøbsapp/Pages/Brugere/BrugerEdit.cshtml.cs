@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Indkøbsapp.Catalog;
+using Indkøbsapp.Helpers;
 using Indkøbsapp.Models;
 using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,7 @@ namespace Indkøbsapp.Pages.Brugere
         public IActionResult OnPost()
         {
             Katalog.UpdateUser(Bruger);
+            SharedMemory.LoggedInUser = Bruger;
             return RedirectToPage("BrugerSide", "Bruger", new { username = Bruger.UserName });
         }
     }

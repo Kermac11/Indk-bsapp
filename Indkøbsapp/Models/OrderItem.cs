@@ -12,8 +12,8 @@ namespace Indkøbsapp.Models
         {
             this.Price = item.Price;
             this.Billede = item.Billede;
-            this.Description = item.Billede;
-            this.Navn = item.Billede;
+            this.Description = item.Description;
+            this.Navn = item.Navn;
             this.TypeVare = item.TypeVare;
             this.ID = item.ID;
         }
