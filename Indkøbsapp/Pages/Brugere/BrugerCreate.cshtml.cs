@@ -22,9 +22,22 @@ namespace Indkøbsapp.Pages.Brugere
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            int checkInt = Users.GetAllUsers().Count;
             Users.CreateUser(Bruger);
 
-            return RedirectToPage("BrugerIndex");
+            if (Users.GetAllUsers().Count > checkInt)
+            {
+                return RedirectToPage("BrugerIndex");
+            }
+            else
+            {
+                return Page();
+            }
         }
     }
 }

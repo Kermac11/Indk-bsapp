@@ -27,9 +27,11 @@ namespace Indkøbsapp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IBrugerKatalog, BrugerKatalog>();
+            services.AddTransient<IOrdrerKatalog, OrderKatalog>();
+            services.AddTransient<IBrugerKatalog, BrugerKatalog>();
             services.AddRazorPages();
-            services.AddTransient<IRepositoryButik, JsonButikRepository>();
+            services.AddSingleton<FakeButikRepository>();
+            services.AddSingleton<IButiksVareKatalog, ButiksVareKatalog>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

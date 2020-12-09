@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 
 namespace RazorPagesEventMaker.Helpers
 {
-    public class JsonFileWriter
+    public class JsonAdminFileWriter
     {
-        public static void WriteToJson(Dictionary<string,Bruger> bruger, string filePath)
+        public static void WriteToJson(Dictionary<string,Admin> bruger, string filePath)
         {
             string output = JsonConvert.SerializeObject(bruger);
             File.WriteAllText(filePath, output);

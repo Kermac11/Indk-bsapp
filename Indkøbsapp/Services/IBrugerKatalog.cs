@@ -7,12 +7,13 @@ namespace Indkøbsapp.Services
     {
         void CreateUser(Bruger user);
         public string UserName { get; set; }
-        IBruger SearchUser(int id);
+        Bruger SearchUser(string username);
+        Bruger SearchUserId(int id);
         void UpdateUser(Bruger user);
         void DeleteUserName(string username);        
         void DeleteUserId(int id);
-        Dictionary<int,Bruger> FilteredUsers(string criteria); 
+        Dictionary<string,Bruger> FilteredUsers(string criteria); 
         Bruger CheckPassword(Bruger bruger);
-        Dictionary<int, Bruger> GetAllUsers();
+        Dictionary<string, Bruger> GetAllUsers();
     }
 }

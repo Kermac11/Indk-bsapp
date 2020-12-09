@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 
 namespace RazorPagesEventMaker.Helpers
 {
-    public class JsonFileReader
+    public class JsonOrdrerKatalogFileReader
     {
-        public static Dictionary<string,Bruger> ReadJson(string filePath)
+        public static Dictionary<string, Ordrer> ReadJson(string filePath)
         {
             string jsonString = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<Dictionary<string,Bruger>>(jsonString);
+            return JsonConvert.DeserializeObject<Dictionary<string, Ordrer>>(jsonString);
         }
 
-        
+
 
     }
 }

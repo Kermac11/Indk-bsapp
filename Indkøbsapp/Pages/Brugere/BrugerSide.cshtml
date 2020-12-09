@@ -1,18 +1,61 @@
 ﻿@page
+@using Indkøbsapp.Helpers
+@using Indkøbsapp.Models
 @model Indkøbsapp.Pages.Brugere.BrugerSideModel
 @{
 }
-<p>
+@if (!(Model.Bruger is Admin))
+{
+    <a asp-page="BrugerEdit" asp-route-bruger="@Model.Bruger.UserName">Redigere Oplysninger</a>
+}
+<h1>
     @Model.Bruger.Navn
-</p>
+</h1>
 
-<p>
+<h1>
     @Model.Bruger.Adresse
-</p>
-
+</h1>
+<h1>
+    Skabt den @Model.Bruger.CreationDate
+</h1>
 @if (Model.Bruger.Leverandør == true)
 {
     <p>
         Jeg er leverandør
     </p>
+}
+
+@if (Model.Bruger is Admin)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>UserName</th>
+                <th>Name</th>
+                <th>Adresse</th>
+                <th>Creation Date</th>
+                <th>Slet Bruger</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Bruger item in Model.Users.GetAllUsers().Values)
+            {
+                <tr>
+                    <td> @item.ID</td>
+                    <td> @item.UserName</td>
+                    <td> @item.Navn</td>
+                    <td> @item.Adresse</td>
+                    <td> @item.CreationDate</td>
+                    <td>
+                        <form method="post" asp-page-handler="delete">
+                            <button class="btn btn-primary">Delete</button>
+                            <input type="hidden" name="deleteuser" value="@item.UserName">
+                            <input type="hidden" name="currentuser" value="@Model.Bruger.UserName">
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }

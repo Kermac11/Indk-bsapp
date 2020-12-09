@@ -1,0 +1,54 @@
+﻿@page
+@using Indkøbsapp.Interfaces
+@model Indkøbsapp.Pages.Items.CreateButikItemModel
+@inject IButiksVareKatalog ButiksVareKatalog
+@{
+}
+
+<h1>Opret vare</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.ID" class="custom-control-label"></label>
+                <input asp-for="@Model.Item.ID" class="form-control" />
+                <span asp-validation-for="@Model.Item.ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.Navn" class="custom-control-label"></label>
+                <input asp-for="@Model.Item.Navn" class="form-control" />
+                <span asp-validation-for="@Model.Item.Navn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.Description" class="custom-control-label"></label>
+                <input asp-for="@Model.Item.Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.Price" class="custom-control-label"></label>
+                <input asp-for="@Model.Item.Price" class="form-control" />
+                <span asp-validation-for="@Model.Item.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.TypeVare" class="custom-control-label"></label>
+                <select asp-for="@Model.Item.TypeVare" asp-items="Html.GetEnumSelectList<VareKategori>()">
+                    <option selected="selected" value="">Please Select</option>
+                </select>
+                <span asp-validation-for="@Model.Item.TypeVare" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.Billede" class="custom-control-label"></label>
+                <input asp-for="@Model.Item.Billede" class="form-control" />
+                <span asp-validation-for="@Model.Item.Billede" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="create" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-page="ButikItems">Back to list</a>
+            </div>
+        </form>
+
+    </div>
+</div>

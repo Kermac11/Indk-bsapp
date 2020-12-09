@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Indkøbsapp.Helpers
+@using Indkøbsapp.Models
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,6 +30,30 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Butikker/ButikIndex">Butik</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Items/ButikItems">Items</a>
+                        </li>
+                        <li class=" ml-auto">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Kurv
+                                </button>
+
+                                @if (SharedMemory.ActiveOrdrer != null)
+                                {
+                                    if (SharedMemory.ActiveOrdrer.Order != null)
+                                    {
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
+                                            {
+                                                <p class="dropdown-item">@item.Amount x @item.Navn</p>
+                                            }
+                                            <a asp-page="/Ordrers/Index">Se kurv</a>
+                                        </div>
+                                    }
+                                }
+                            </div>
                         </li>
                     </ul>
                 </div>

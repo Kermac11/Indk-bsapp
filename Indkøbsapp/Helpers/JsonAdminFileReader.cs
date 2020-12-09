@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 
 namespace RazorPagesEventMaker.Helpers
 {
-    public class JsonFileReader
+    public class JsonAdminFileReader
     {
-        public static Dictionary<string,Bruger> ReadJson(string filePath)
+        public static Dictionary<string,Admin> ReadJson(string filePath)
         {
             string jsonString = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<Dictionary<string,Bruger>>(jsonString);
+            return JsonConvert.DeserializeObject<Dictionary<string,Admin>>(jsonString);
         }
 
         

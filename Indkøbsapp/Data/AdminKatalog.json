@@ -1,0 +1,12 @@
+﻿{
+  "admin": {
+    "Navn": "Jens",
+    "ID": 0,
+    "Adresse": "Øretævsvej",
+    "CreationDate": "0001-01-01T00:00:00",
+    "UserName": "admin",
+    "PassWord": "admin",
+    "Leverandør": false
+  }
+}
+
