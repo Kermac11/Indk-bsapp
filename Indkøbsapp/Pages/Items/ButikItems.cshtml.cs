@@ -31,7 +31,7 @@ namespace Indkøbsapp.Pages
         //Man skal kunne se varetypen
         // filtrere ud fra varetypen med dropdown så kun varer af den type vises?
         //TILFØJ RIGTIGE VARER MED BILLEDER
-        //tilføj butik property til varer
+        //Filtrering efter butikker
 
 
 

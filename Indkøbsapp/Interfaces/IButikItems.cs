@@ -10,5 +10,6 @@
         public double Price { get; set; }
         public string Description { get; set; }
         public string Billede { get; set; }
+        public string Butik { get; set; }
     }
 }
