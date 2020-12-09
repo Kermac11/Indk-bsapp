@@ -34,6 +34,7 @@ namespace Indkøbsapp.Services
 
             return null;
         }
+
         public Butik GetButik(string butiksNavn)
         {
             foreach (Butik c in butikker)
@@ -48,9 +49,27 @@ namespace Indkøbsapp.Services
         }
         public void AddButik(Butik butik)
         {
-            throw new NotImplementedException();
+            butikker.Add(butik);
         }
 
+        public Butik LookUpButik(string butiksNavn)
+        {
+            foreach(Butik b in butikker)
+            {
+                if (b.ButiksNavn == butiksNavn)
+                    return b;
+            }
+            return null;
+        }
+
+        public void DeleteButik(string butiksNavn)
+        {
+            Butik foundButik = LookUpButik(butiksNavn);
+            if(foundButik != null)
+            {
+                butikker.Remove(foundButik);
+            }
+        }
     }
 }
 
