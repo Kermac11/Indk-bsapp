@@ -30,7 +30,7 @@ namespace Indkøbsapp.Models
                 if (i.ID == item.ID)
                 {
                     i.Amount += 1;
-                    i.Price += 1;
+                    Price += i.Price;
                     AntalVarerIOdrer += 1;
                     exist = true;
                 }
@@ -40,7 +40,7 @@ namespace Indkøbsapp.Models
             {
                 OrderItem p = new OrderItem(item);
                 p.Amount = 1;
-                p.Price += 1;
+                Price += p.Price;
                 AntalVarerIOdrer += 1;
                 Order.Add(p);
             }
