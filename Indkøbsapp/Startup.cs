@@ -32,6 +32,7 @@ namespace Indkøbsapp
             services.AddRazorPages();
             services.AddSingleton<FakeButikRepository>();
             services.AddSingleton<IButiksVareKatalog, ButiksVareKatalog>();
+            services.AddTransient<IRepositoryButik, JsonButikRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
