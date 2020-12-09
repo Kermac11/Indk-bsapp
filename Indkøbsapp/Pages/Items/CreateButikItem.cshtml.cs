@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Indkøbsapp.Interfaces;
 using Indkøbsapp.Models;
+using Indkøbsapp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,13 +13,22 @@ namespace Indkøbsapp.Pages.Items
     public class CreateButikItemModel : PageModel
     {
         private IButiksVareKatalog repo;
-
+        
         [BindProperty]
         public ButikItems Item { get; set; }
 
-        public CreateButikItemModel(IButiksVareKatalog repository)
+        public List<string> ButikNavneList;
+        public CreateButikItemModel(IButiksVareKatalog repository,IRepositoryButik butikNavne)
         {
             repo = repository;
+            ButikNavneList=new List<string>();
+            foreach (var butik in butikNavne.GetAllButikker())
+            {
+                if (!ButikNavneList.Contains(butik.ButiksNavn))
+                {
+                    ButikNavneList.Add(butik.ButiksNavn);
+                }
+            }
         }
 
         public IActionResult OnGet()

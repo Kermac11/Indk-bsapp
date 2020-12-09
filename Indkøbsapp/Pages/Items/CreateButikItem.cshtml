@@ -1,5 +1,6 @@
 ﻿@page
 @using Indkøbsapp.Interfaces
+@using Indkøbsapp.Repositories
 @using Indkøbsapp.Services
 @model Indkøbsapp.Pages.Items.CreateButikItemModel
 @inject IButiksVareKatalog ButiksVareKatalog
@@ -40,8 +41,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Item.Butik" class="custom-control-label"></label>
-                <select asp-for="@Model.Item.Butik" asp-items="">
+                <select asp-for="@Model.Item.Butik">
                     <option selected="selected" value="">Please Select</option>
+                    @foreach (string navn in @Model.ButikNavneList)
+                    {
+                        <option value="@navn">@navn</option>
+                    }
                 </select>
                 <span asp-validation-for="@Model.Item.Butik" class="text-danger"></span>
             </div>
