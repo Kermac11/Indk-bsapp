@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Indkøbsapp.Catalog;
 using Indkøbsapp.Interfaces;
+using Indkøbsapp.Repositories;
 using Indkøbsapp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace Indkøbsapp
             services.AddRazorPages();
             services.AddSingleton<FakeButikRepository>();
             services.AddSingleton<IButiksVareKatalog, ButiksVareKatalog>();
+            services.AddTransient<IRepositoryButik, JsonButikRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

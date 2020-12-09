@@ -12,5 +12,19 @@ namespace Indkøbsapp.Models
         public string ButiksNavn { get; set; }
         [Required]
         public string Lokation { get; set; }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj!= null)
+            {
+                Butik aButik = (Butik) obj;
+                if (aButik.ButiksNavn == ButiksNavn)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
     }
 }
