@@ -9,16 +9,16 @@ namespace Indkøbsapp.Services
     public class ButiksVareKatalog : IButiksVareKatalog
     {
         private string filepath = @"Data\JsonVarer.json";
-        
+
         public string ButiksNavn { get; set; }
         public string Lokation { get; set; }
 
         public Dictionary<int, ButikItems> GetAllButikVarer()
         {
-            Dictionary<int,ButikItems> result= new Dictionary<int, ButikItems>();
+            Dictionary<int, ButikItems> result = new Dictionary<int, ButikItems>();
             foreach (var vare in JsonVareReader.ReadJson(filepath))
             {
-                result.Add(vare.ID,vare);
+                result.Add(vare.ID, vare);
             }
             return result;
         }
@@ -44,8 +44,8 @@ namespace Indkøbsapp.Services
             {
                 varer.Add(item);
             }
-            
-            JsonVareWriter.WriteToJson(varer,filepath);
+
+            JsonVareWriter.WriteToJson(varer, filepath);
         }
 
         public void DeleteItem(int id)
@@ -56,7 +56,7 @@ namespace Indkøbsapp.Services
                 varer.Add(vare);
             }
 
-            
+
             if (GetAllButikVarer().ContainsKey(id))
             {
                 ButikItems vareToDelete = null;
@@ -69,7 +69,7 @@ namespace Indkøbsapp.Services
                 }
                 varer.Remove(vareToDelete);
             }
-            
+
             JsonVareWriter.WriteToJson(varer, filepath);
         }
 
@@ -95,35 +95,12 @@ namespace Indkøbsapp.Services
         //    return dl;
         //}Ved ikke hvad den her skal gøre
 
-        public List<ButikItems> FilterItems(string criteria)
-        {
-            List<ButikItems> dl = new List<ButikItems>();
-            if (criteria == "" || criteria == null)
-            {
-                foreach (var item in GetAllButikVarer().Values)
-                {
-                    dl.Add(item);
-                }
-            }
-            else
-            {
-                string cl = criteria.ToLower();
-                foreach (ButikItems item in GetAllButikVarer().Values)
-                {
-                    if (item.Navn.ToLower().StartsWith(cl))
-                    {
-                        dl.Add(item);
-                    }
-                }
-            }
-            return dl;
-        }
         public void EditVare(ButikItems vare)
         {
             if (vare != null)
             {
                 List<ButikItems> varer = new List<ButikItems>();
-                    
+
                 foreach (var va in GetAllButikVarer().Values)
                 {
                     if (va.ID == vare.ID)
@@ -140,6 +117,96 @@ namespace Indkøbsapp.Services
                 }
                 JsonVareWriter.WriteToJson(varer, filepath);
             }
+        }
+        public List<ButikItems> FilterItems(string criteria)
+        {
+            List<ButikItems> dl = new List<ButikItems>();
+            if (criteria == "" || criteria == null)
+            {
+                foreach (var item in GetAllButikVarer().Values)
+                {
+                    dl.Add(item);
+                }
+            }
+            else
+            {
+                string cl = criteria.ToLower();
+                foreach (ButikItems item in GetAllButikVarer().Values)
+                {
+                    if (item.Navn.ToLower().Contains(cl))
+                    {
+                        dl.Add(item);
+                    }
+                }
+            }
+            return dl;
+        }
+        public List<ButikItems> FilterButiks(string butik)
+        {
+            List<ButikItems> dl = new List<ButikItems>();
+            if (butik == "" || butik == null)
+            {
+                foreach (var item in GetAllButikVarer().Values)
+                {
+                    dl.Add(item);
+                }
+            }
+            else
+            {
+                string bLower = butik.ToLower();
+                foreach (ButikItems item in GetAllButikVarer().Values)
+                {
+                    if (item.Butik.ToLower().StartsWith(bLower))
+                    {
+                        dl.Add(item);
+                    }
+                }
+            }
+            return dl;
+        }
+        public List<ButikItems> FilterItemsAndButiks(string criteria, string butik)
+        {
+            List<ButikItems> dl = new List<ButikItems>();
+            string cLower = criteria.ToLower();
+            string bLower = butik.ToLower();
+            foreach (ButikItems item in GetAllButikVarer().Values)
+            {
+                if (item.Navn.ToLower().Contains(cLower) && item.Butik.ToLower().StartsWith(bLower))
+                {
+                    dl.Add(item);
+                }
+            }
+            return dl;
+        }
+        public List<ButikItems> FilterByEitherItemOrButik(string criteria, string butik)
+        {
+            List<ButikItems> dl = new List<ButikItems>();
+            if (criteria == "" || criteria == null)
+            {
+                if (butik == "" || butik == null)
+                {
+                    foreach (var item in GetAllButikVarer().Values)
+                    {
+                        dl.Add(item);
+                    }
+                }
+                else
+                {
+                    dl = FilterButiks(butik);
+                }
+            }
+            else
+            {
+                if (butik == "" || butik == null)
+                {
+                    dl = FilterItems(criteria);
+                }
+                else
+                {
+                    dl = FilterItemsAndButiks(criteria, butik);
+                }
+            }
+            return dl;
         }
     }
 }

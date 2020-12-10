@@ -14,10 +14,18 @@
         <p>
             Search:
             <input type="text" asp-for="@Model.Criteria" />
+            <select asp-for="@Model.ButikFilter">
+                <option selected="selected" value="">-Butikker-</option>
+                @foreach (string navn in @Model.ButikNavneList)
+                {
+                    <option value="@navn">@navn</option>
+                }
+            </select>
             <input type="submit" value="Filter" />
         </p>
     </form>
 </div>
+
 
 
     <h1>Liste af butik items</h1>
@@ -28,7 +36,7 @@
     </p>
 
 
-<p>Antal elementer i ButiksKatalog: @Model.repo.GetAllButikVarer().Count</p>
+<p>Antal varer i ButiksKatalog: @Model.repo.GetAllButikVarer().Count</p>
 <table class="table">
     <thead>
         <tr>
@@ -41,7 +49,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.repo.GetAllButikVarer().Values)
+        @foreach (var item in Model.Items)
         {
             <tr>
                 <td> @item.ID</td>

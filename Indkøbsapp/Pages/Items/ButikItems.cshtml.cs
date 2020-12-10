@@ -17,12 +17,21 @@ namespace Indkøbsapp.Pages
     {
         public IButiksVareKatalog repo;
         public List<ButikItems> Items { get; set; }
-
+        [BindProperty] public string ButikFilter { get; set; }
         [BindProperty] public string Criteria { get; set; }
+        public List<string> ButikNavneList;
 
-        public ButikItemsModel(IButiksVareKatalog varer)
+        public ButikItemsModel(IButiksVareKatalog varer, IRepositoryButik butikNavne)
         {
             repo = varer;
+            ButikNavneList = new List<string>();
+            foreach (var butik in butikNavne.GetAllButikker())
+            {
+                if (!ButikNavneList.Contains(butik.ButiksNavn))
+                {
+                    ButikNavneList.Add(butik.ButiksNavn);
+                }
+            }
         }
 
 
@@ -35,14 +44,18 @@ namespace Indkøbsapp.Pages
 
 
 
-        public void OnGet()
+        public void OnGet(string butikNavn)
         {
-            Items = repo.FilterItems(Criteria);
+            if (butikNavn != null)
+            {
+                ButikFilter = butikNavn;
+            }
+            Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
         }
 
         public void OnPostFilter()
         {
-            Items = repo.FilterItems(Criteria);
+            Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
         }
 
         public void OnPostAdd(int id)
