@@ -21,7 +21,7 @@ namespace Indkøbsapp.Pages.Items
         public CreateButikItemModel(IButiksVareKatalog repository,IRepositoryButik butikNavne)
         {
             repo = repository;
-            ButikNavneList=new List<string>();
+            ButikNavneList=new List<string>(); // Her hentes alle butiknavnene til en dropdown menu så man kun kan vælge butikker der findes i systemet
             foreach (var butik in butikNavne.GetAllButikker())
             {
                 if (!ButikNavneList.Contains(butik.ButiksNavn))

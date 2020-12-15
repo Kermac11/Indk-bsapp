@@ -8,15 +8,17 @@ namespace Indkøbsapp.Services
 {
     public class ButiksVareKatalog : IButiksVareKatalog
     {
-        private string filepath = @"Data\JsonVarer.json";
+        public string filepath { get; set; } = @"Data\JsonVarer.json";
+        
 
         public string ButiksNavn { get; set; }
         public string Lokation { get; set; }
 
         public Dictionary<int, ButikItems> GetAllButikVarer()
         {
+            // Varerne skal i en dictionary, og jsonreaderen returnere en liste, så hver vare i listen bliver addet til dictionary med id som key
             Dictionary<int, ButikItems> result = new Dictionary<int, ButikItems>();
-            foreach (var vare in JsonVareReader.ReadJson(filepath))
+            foreach (var vare in JsonVareReader.ReadJson(filepath)) 
             {
                 result.Add(vare.ID, vare);
             }
@@ -44,8 +46,8 @@ namespace Indkøbsapp.Services
             {
                 varer.Add(item);
             }
-
-            JsonVareWriter.WriteToJson(varer, filepath);
+            // Når man skal skrive en ny vare til json skal man skrive alle varerne igen, det skal også være en liste, så man tilføjer alle eksisterende varer og derefter den nye vare og så skriver man det i json filen.
+            JsonVareWriter.WriteToJson(varer, filepath); 
         }
 
         public void DeleteItem(int id)
@@ -53,47 +55,18 @@ namespace Indkøbsapp.Services
             List<ButikItems> varer = new List<ButikItems>();
             foreach (var vare in GetAllButikVarer().Values)
             {
-                varer.Add(vare);
-            }
-
-
-            if (GetAllButikVarer().ContainsKey(id))
-            {
-                ButikItems vareToDelete = null;
-                foreach (var item in varer)
+                if (vare.ID != id)
                 {
-                    if (item.ID == id)
-                    {
-                        vareToDelete = item;
-                    }
+                    varer.Add(vare);
                 }
-                varer.Remove(vareToDelete);
             }
-
+            // Man skal bruge en liste til jsonwriteren, så man tilføjer alle vare undtagen den med det id man vil slette og så bruger man WriteToJson
             JsonVareWriter.WriteToJson(varer, filepath);
+
+            
         }
 
-        //public Dictionary<int, IButikItems> SortPrices()
-        //{
-        //    int placeholder = 0;
-        //    Dictionary<int, IButikItems> dl = new Dictionary<int, IButikItems>();
-        //    foreach (KeyValuePair<int,IButikItems> item in Katalog.OrderBy(key => key.Value.Price))
-        //    {
-        //        if (placeholder == 0)
-        //        {
-        //            dl.Add(0, item.Value);
-        //            placeholder += 1;
-        //        }
-        //        else
-        //        {
-        //            dl.Add(placeholder, item.Value);
-        //            placeholder += 1;
-        //        }
-
-        //    }
-
-        //    return dl;
-        //}Ved ikke hvad den her skal gøre
+        
 
         public void EditVare(ButikItems vare)
         {
@@ -118,7 +91,7 @@ namespace Indkøbsapp.Services
                 JsonVareWriter.WriteToJson(varer, filepath);
             }
         }
-        public List<ButikItems> FilterItems(string criteria)
+        public List<ButikItems> FilterItems(string criteria) // Denne metode filtrerer kun ud fra en string på varernes navn
         {
             List<ButikItems> dl = new List<ButikItems>();
             if (criteria == "" || criteria == null)
@@ -141,7 +114,7 @@ namespace Indkøbsapp.Services
             }
             return dl;
         }
-        public List<ButikItems> FilterButiks(string butik)
+        public List<ButikItems> FilterButiks(string butik) // Denne metode filtrerer kun ud fra en string på butikkernes navn
         {
             List<ButikItems> dl = new List<ButikItems>();
             if (butik == "" || butik == null)
@@ -164,7 +137,7 @@ namespace Indkøbsapp.Services
             }
             return dl;
         }
-        public List<ButikItems> FilterItemsAndButiks(string criteria, string butik)
+        public List<ButikItems> FilterItemsAndButiks(string criteria, string butik) //Denne metode filtrerer ud fra både Butiknavn og varenavn
         {
             List<ButikItems> dl = new List<ButikItems>();
             string cLower = criteria.ToLower();
@@ -178,7 +151,7 @@ namespace Indkøbsapp.Services
             }
             return dl;
         }
-        public List<ButikItems> FilterByEitherItemOrButik(string criteria, string butik)
+        public List<ButikItems> FilterByEitherItemOrButik(string criteria, string butik) //Denne metode bruger de to andre metoder alt efter om et søgefelt er tomt eller ej.
         {
             List<ButikItems> dl = new List<ButikItems>();
             if (criteria == "" || criteria == null)

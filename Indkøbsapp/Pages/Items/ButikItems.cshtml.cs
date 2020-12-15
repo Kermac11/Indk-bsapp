@@ -17,14 +17,14 @@ namespace Indkøbsapp.Pages
     {
         public IButiksVareKatalog repo;
         public List<ButikItems> Items { get; set; }
-        [BindProperty] public string ButikFilter { get; set; }
-        [BindProperty] public string Criteria { get; set; }
+        [BindProperty] public string ButikFilter { get; set; } // Dropdown menuen ændrer ButikFilter som bruges til at filtrere efter butik
+        [BindProperty] public string Criteria { get; set; } // Søgefeltet ændrer Criteria som bruges til at filtrere efter varenavn
         public List<string> ButikNavneList;
 
         public ButikItemsModel(IButiksVareKatalog varer, IRepositoryButik butikNavne)
         {
-            repo = varer;
-            ButikNavneList = new List<string>();
+            repo = varer; // repo sættes til at være hele varekataloget
+            ButikNavneList = new List<string>(); // Der hentes en liste af alle butikkerne som bruges til dropdown menuen.
             foreach (var butik in butikNavne.GetAllButikker())
             {
                 if (!ButikNavneList.Contains(butik.ButiksNavn))
@@ -34,23 +34,16 @@ namespace Indkøbsapp.Pages
             }
         }
 
-
-        //Admin knappperne skal gemmes hvis man ikke er admin
-        //Mere filtrering
-        //Man skal kunne se varetypen
-        // filtrere ud fra varetypen med dropdown så kun varer af den type vises?
         //TILFØJ RIGTIGE VARER MED BILLEDER
-        //Filtrering efter butikker
-
-
+        
 
         public void OnGet(string butikNavn)
         {
-            if (butikNavn != null)
+            if (butikNavn != null) // Hvis man bliver redirected en route-butikNavn vil varerne være filtreret efter den butik når man kommer til siden med varer
             {
                 ButikFilter = butikNavn;
             }
-            Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
+            Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter); //Filtreringsmetoden bruger både Criteria og ButikFilter til at vise det man søger efter
         }
 
         public void OnPostFilter()
@@ -60,7 +53,7 @@ namespace Indkøbsapp.Pages
 
         public void OnPostAdd(int id)
         {
-            SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
+            SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id)); //Når man lægger en vare i kurven kommer den i ActiveOrder som er static
         }
     }
 }

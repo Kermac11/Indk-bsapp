@@ -1,6 +1,8 @@
 ﻿@page
 @using Indkøbsapp.Interfaces
 @using Indkøbsapp.Catalog
+@using Indkøbsapp.Helpers
+@using Indkøbsapp.Models
 @model Indkøbsapp.Pages.ButikItemsModel
 @inject IButiksVareKatalog ButiksVareKatalog
 @{
@@ -28,13 +30,14 @@
 
 
 
-    <h1>Liste af butik items</h1>
+<h1>Liste af butik items</h1>
 
-
+@if (SharedMemory.LoggedInUser is Admin)
+{
     <p>
         <a asp-page="CreateButikItem">Create New</a>
     </p>
-
+}
 
 <p>Antal varer i ButiksKatalog: @Model.repo.GetAllButikVarer().Count</p>
 <table class="table">
@@ -45,7 +48,10 @@
             <th>Description</th>
             <th>Price</th>
             <th>Butik</th>
+            <th>Kategori</th>
             <th>Billede</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -57,8 +63,12 @@
                 <td> @item.Description</td>
                 <td> @item.Price</td>
                 <td> @item.Butik</td>
-                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
-                <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
+                <td> @item.TypeVare</td>
+                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>4
+                @if (SharedMemory.LoggedInUser is Admin)
+                {
+                    <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
+                }
                 <td>
                     <form method="post" asp-page-handler="add">
                         <button class="btn btn-primary">Add</button>
@@ -72,7 +82,7 @@
 </table>
 
 
-    <h2>Alle Items i repository</h2>
+<h2>Alle Items i repository</h2>
 
 <table class="table">
     <thead>
@@ -82,21 +92,28 @@
             <th>Description</th>
             <th>Price</th>
             <th>Butik</th>
+            <th>Kategori</th>
             <th>Billede</th>
+            <th></th>
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.repo.GetAllButikVarer().Values)
         {
-            <tr>
-                <td> @item.ID</td>
-                <td> @item.Navn</td>
-                <td> @item.Description</td>
-                <td> @item.Price</td>
-                <td> @item.Butik</td>
-                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
+        <tr>
+            <td> @item.ID</td>
+            <td> @item.Navn</td>
+            <td> @item.Description</td>
+            <td> @item.Price</td>
+            <td> @item.Butik</td>
+            <td> @item.TypeVare</td>
+            <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
+            @if (SharedMemory.LoggedInUser is Admin)
+            {
                 <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
-            </tr>
+            }
+        </tr>
 
         }
     </tbody>
