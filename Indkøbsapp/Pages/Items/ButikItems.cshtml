@@ -1,56 +1,83 @@
 ﻿@page
 @using Indkøbsapp.Interfaces
 @using Indkøbsapp.Catalog
+@using Indkøbsapp.Helpers
+@using Indkøbsapp.Models
 @model Indkøbsapp.Pages.ButikItemsModel
 @inject IButiksVareKatalog ButiksVareKatalog
 @{
-ViewData["Title"] = "ButikItems";
+    ViewData["Title"] = "ButikItems";
 }
 
 <h1>ButikItems</h1>
 
 <div>
-    <form method="post">
+    <form method="post" asp-page-handler="filter">
         <p>
             Search:
             <input type="text" asp-for="@Model.Criteria" />
+            <select asp-for="@Model.ButikFilter">
+                <option selected="selected" value="">-Butikker-</option>
+                @foreach (string navn in @Model.ButikNavneList)
+                {
+                    <option value="@navn">@navn</option>
+                }
+            </select>
             <input type="submit" value="Filter" />
         </p>
     </form>
 </div>
 
 
+
 <h1>Liste af butik items</h1>
 
-<p>
-    <a asp-page="CreateButikItem">Create New</a>
-</p>
+@if (SharedMemory.LoggedInUser is Admin)
+{
+    <p>
+        <a asp-page="CreateButikItem">Create New</a>
+    </p>
+}
 
-
-<p>Antal elementer i ButiksKatalog: @Model.Items.Count</p>
+<p>Antal varer i ButiksKatalog: @Model.repo.GetAllButikVarer().Count</p>
 <table class="table">
     <thead>
-    <tr>
-        <th>Id</th>
-        <th>Navn</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Billede</th>
-    </tr>
+        <tr>
+            <th>Id</th>
+            <th>Navn</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Butik</th>
+            <th>Kategori</th>
+            <th>Billede</th>
+            <th></th>
+            <th></th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td> @item.ID</td>
-            <td> @item.Navn</td>
-            <td> @item.Description</td>
-            <td> @item.Price</td>
-            <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
-            <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
-        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td> @item.ID</td>
+                <td> @item.Navn</td>
+                <td> @item.Description</td>
+                <td> @item.Price</td>
+                <td> @item.Butik</td>
+                <td> @item.TypeVare</td>
+                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>4
+                @if (SharedMemory.LoggedInUser is Admin)
+                {
+                    <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
+                }
+                <td>
+                    <form method="post" asp-page-handler="add">
+                        <button class="btn btn-primary">Add</button>
+                        <input type="hidden" name="id" value="@item.ID" />
+                    </form>
+                </td>
+            </tr>
 
-    }
+        }
     </tbody>
 </table>
 
@@ -64,21 +91,30 @@ ViewData["Title"] = "ButikItems";
             <th>Navn</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Butik</th>
+            <th>Kategori</th>
             <th>Billede</th>
+            <th></th>
+
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.repo.GetAllButikVarer().Values)
-    {
+        @foreach (var item in Model.repo.GetAllButikVarer().Values)
+        {
         <tr>
             <td> @item.ID</td>
             <td> @item.Navn</td>
             <td> @item.Description</td>
             <td> @item.Price</td>
+            <td> @item.Butik</td>
+            <td> @item.TypeVare</td>
             <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
-            <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
+            @if (SharedMemory.LoggedInUser is Admin)
+            {
+                <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
+            }
         </tr>
 
-    }
+        }
     </tbody>
 </table>

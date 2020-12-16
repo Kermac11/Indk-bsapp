@@ -11,8 +11,20 @@ namespace Indkøbsapp.Models
         public List<OrderItem> Order { get; set; }
         public Bruger Buyer { get; set; }
         public int ID { get; set; }
-        public double Price { get; set; }
+        public double Price
+        {
+            get
+            {
+                return CalculatePrice();
+            }
+            set{}
+        }
         public int AntalVarerIOdrer { get; set; }
+
+        public Ordrer()
+        {
+            Order = new List<OrderItem>();
+        }
         public void AddItem(ButikItems item)
         {
             bool exist = false;
@@ -22,7 +34,6 @@ namespace Indkøbsapp.Models
                 {
                     i.Amount += 1;
                     AntalVarerIOdrer += 1;
-                    Price += i.Price;
                     exist = true;
                 }
             }
@@ -32,10 +43,9 @@ namespace Indkøbsapp.Models
                 OrderItem p = new OrderItem(item);
                 p.Amount = 1;
                 AntalVarerIOdrer += 1;
-                Price += p.Price;
                 Order.Add(p);
             }
-          
+
         }
 
         public void DeleteItem(int id)
@@ -47,7 +57,6 @@ namespace Indkøbsapp.Models
                 {
                     check = item;
                     item.Amount -= 1;
-                    Price -= item.Price;
                     AntalVarerIOdrer -= 1;
                 }
             }
@@ -56,6 +65,17 @@ namespace Indkøbsapp.Models
             {
                 Order.Remove(check);
             }
+        }
+
+        public double CalculatePrice()
+        {
+            double price = 0;
+            foreach (OrderItem item in Order)
+            {
+                price = item.Amount * item.Price;
+            }
+
+            return price;
         }
     }
 }

@@ -15,10 +15,18 @@ namespace Indkøbsapp.Pages.Items
 
         [BindProperty]
         public ButikItems Item { get; set; }
-
-        public EditItemModel(IButiksVareKatalog repository)
+        public List<string> ButikNavneList;
+        public EditItemModel(IButiksVareKatalog repository, IRepositoryButik butikNavne)
         {
             repo = repository;
+            ButikNavneList = new List<string>();
+            foreach (var butik in butikNavne.GetAllButikker())
+            {
+                if (!ButikNavneList.Contains(butik.ButiksNavn))
+                {
+                    ButikNavneList.Add(butik.ButiksNavn);
+                }
+            }
         }
 
         public IActionResult OnGet(int id)
@@ -26,10 +34,7 @@ namespace Indkøbsapp.Pages.Items
             Item=repo.GetAllButikVarer()[id];
             return Page();
         }
-        //Der skal være noget der håndterer at Id passer til item fordi den addes til en dictionary og ikke en list
-        //Den tilføjer en vare med id=0 det kan man kun gøre en gang, det er lidt mærkeligt hvis man selv skal vælge et id
-        //
-        //Der skal være noget til at vælge et billede måske, ellers giver det ikke mening at have det
+        
 
         public IActionResult OnPost()
         {

@@ -42,7 +42,7 @@
 
                                 @if (SharedMemory.ActiveOrdrer != null)
                                 {
-                                    if (SharedMemory.ActiveOrdrer.Order != null)
+                                    if (SharedMemory.ActiveOrdrer.Order != null && SharedMemory.ActiveOrdrer.Order.Count != 0)
                                     {
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)

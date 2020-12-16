@@ -10,6 +10,9 @@ namespace Indkøbsapp.Pages.Items
 {
     public class DeleteItemModel : PageModel
     {
+
+        // Dette er ikke en rigtig side man bliver routet til den og så sletter OnGet metoden den vare man har klikket på, og så bliver man sendt tilbage til varesiden
+
         private IButiksVareKatalog repo;
         public DeleteItemModel(IButiksVareKatalog repository)
         {

@@ -13,7 +13,26 @@ namespace Indkøbsapp.Models
         {
             
         }
-        //Her mangler [REQUIRED og sådan noget
+
+        public ButikItems(VareKategori type, int id, string navn, double price, string description, string butik)
+        {
+            TypeVare = type;
+            ID = id;
+            Navn = navn;
+            Price = price;
+            Description = description;
+            Butik = butik;
+        }
+        public ButikItems(VareKategori type, int id, string navn, double price, string description, string butik, string billede)
+        {
+            TypeVare = type;
+            ID = id;
+            Navn = navn;
+            Price = price;
+            Description = description;
+            Butik = butik;
+            Billede = billede;
+        }
         public VareKategori TypeVare { get; set; }
         [Required]
         public int ID { get; set; }
@@ -21,5 +40,6 @@ namespace Indkøbsapp.Models
         public double Price { get; set; }
         public string Description { get; set; }
         public string Billede { get; set; }
+        public string Butik { get; set; }
     }
 }
