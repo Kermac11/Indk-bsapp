@@ -34,27 +34,27 @@
                 @item.Amount
             </td>
             <td>
-                @item.Navn
+                @item.Item.Navn
             </td>
             <td>
-                @item.Description
+                @item.Item.Description
             </td>
             <td>
-                @item.Price
+                @item.Item.Price
             </td>
             <td>
-                <img src="~/images/@item.Billede" width="60" height="70">
+                <img src="~/images/@item.Item.Billede" width="60" height="70">
             </td>
             <td>
                 <form method="post" asp-page-handler="add">
                     <button class="btn btn-primary">Lig til</button>
-                    <input type="hidden" name="id" value="@item.ID">
+                    <input type="hidden" name="id" value="@item.Item.ID">
                 </form>
             </td>
             <td>
                 <form method="post" asp-page-handler="delete">
                     <button class="btn btn-primary">Fjern</button>
-                    <input type="hidden" name="id" value="@item.ID">
+                    <input type="hidden" name="id" value="@item.Item.ID">
                 </form>
             </td>
         </tr>

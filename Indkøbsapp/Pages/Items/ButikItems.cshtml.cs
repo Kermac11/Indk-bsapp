@@ -16,13 +16,16 @@ namespace Indkøbsapp.Pages
     public class ButikItemsModel : PageModel
     {
         public IButiksVareKatalog repo;
+
+        public IOrdrerKatalog _orderrepo;
         public List<ButikItems> Items { get; set; }
 
         [BindProperty] public string Criteria { get; set; }
 
-        public ButikItemsModel(IButiksVareKatalog varer)
+        public ButikItemsModel(IButiksVareKatalog varer, IOrdrerKatalog orderrepo)
         {
             repo = varer;
+            _orderrepo = orderrepo;
         }
         public void OnGet()
         {
@@ -36,7 +39,21 @@ namespace Indkøbsapp.Pages
 
         public void OnPostAdd(int id)
         {
-            SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
+            if (SharedMemory.LoggedInUser == null)
+            {
+                SharedMemory.LoggedInUser = new Bruger();
+                SharedMemory.LoggedInUser.UserName = "Guest";
+                SharedMemory.LoggedInUser.Navn = "Guest";
+                _orderrepo.CreateOrder(SharedMemory.LoggedInUser.UserName);
+                SharedMemory.ActiveOrdrer = _orderrepo.FindOrder(SharedMemory.LoggedInUser.UserName);
+                SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
+
+            }
+            else
+            {
+                SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
+            }
+            
         }
     }
 }

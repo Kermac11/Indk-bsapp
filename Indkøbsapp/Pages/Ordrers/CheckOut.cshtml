@@ -11,46 +11,50 @@
 <h4>@SharedMemory.LoggedInUser.Adresse</h4>
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            Antal
-        </th>
-        <th>
-            Varenavn
-        </th>
-        <th>
-            Beskrivelse
-        </th>
-        <th>
-            Pris
-        </th>
-        <th>
-            Billede
-        </th>
-    </tr>
+        <tr>
+            <th>
+                Antal
+            </th>
+            <th>
+                Varenavn
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Pris
+            </th>
+            <th>
+                Billede
+            </th>
+        </tr>
     </thead>
     <tbody>
-    <tr>
-    @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
-    {
         <tr>
-            <td>
-                @item.Amount
-            </td>
-            <td>
-                @item.Navn
-            </td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                @item.Price
-            </td>
-            <td>
-                <img src="~/images/@item.Billede" width="60" height="70">
-            </td>
-        </tr>
-    }
-</table>
-<h4>Pris:</h4>
-<p>@SharedMemory.ActiveOrdrer.Price Kr</p>
+            @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
+            {
+            <tr>
+                <td>
+                    @item.Amount
+                </td>
+                <td>
+                    @item.Item.Navn
+                </td>
+                <td>
+                    @item.Item.Description
+                </td>
+                <td>
+                    @item.Item.Price
+                </td>
+                <td>
+                    <img src="~/images/@item.Item.Billede" width="60" height="70">
+                </td>
+            </tr>
+        }
+    </table>
+    <h4>Pris:</h4>
+    <p>@SharedMemory.ActiveOrdrer.Price Kr</p>
+
+    <div class="text-center">
+        <a asp-page="/Ordrers/CompleteOrder" class="btn btn-primary">Check Out</a>
+    </div>

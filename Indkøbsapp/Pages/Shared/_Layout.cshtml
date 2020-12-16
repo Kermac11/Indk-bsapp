@@ -47,7 +47,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
                                             {
-                                                <p class="dropdown-item">@item.Amount x @item.Navn</p>
+                                                <p class="dropdown-item">@item.Amount x @item.Item.Navn</p>
                                             }
                                             <a asp-page="/Ordrers/Index">Se kurv</a>
                                         </div>

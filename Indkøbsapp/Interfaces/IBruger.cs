@@ -9,6 +9,7 @@ namespace Indkøbsapp.Models
     {
         public string Navn { get; set; }
         public int ID { get; set; }
+        public string By { get; set; }
         public string Adresse { get; set; }
         public DateTime CreationDate { get; set; }
         public string UserName { get; set; }

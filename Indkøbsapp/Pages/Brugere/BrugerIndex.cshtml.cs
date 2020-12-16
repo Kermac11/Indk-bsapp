@@ -16,11 +16,16 @@ namespace Indkøbsapp.Pages.Brugere
 {
     public class BrugerIndexModel : PageModel
     {
+
+        // Bruges til at indholde password check resultatet
         [BindProperty]
         public Bruger Bruger { get; set; }
+        // Indeholder alle bruger
         public IBrugerKatalog Users { get; }
+        // Indeholder alle ordrer
         public IOrdrerKatalog Ordres { get; }
 
+        // Henter nødvendige sevices
         public BrugerIndexModel(IBrugerKatalog users, IOrdrerKatalog ordres)
         {
             Users = users;
@@ -31,6 +36,7 @@ namespace Indkøbsapp.Pages.Brugere
         {
         }
 
+        // ONpost metode der chceker for password og tildeler værdier til sharedmemory klassen
         public IActionResult OnPost()
         {
 
