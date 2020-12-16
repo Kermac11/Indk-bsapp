@@ -23,6 +23,7 @@ namespace Indkøbsapp.Pages.Ordrers
             _ordrers = ordrer;
             _users = users;
             _katalog = butiksKatalog;
+            Odrer = SharedMemory.ActiveOrdrer;
         }
         public void OnGet()
         {

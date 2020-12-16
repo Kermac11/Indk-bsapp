@@ -10,7 +10,6 @@ namespace Indkøbsapp.Interfaces
         public Bruger Buyer { get; set; }
         public int ID { get; set; }
         public double Price { get; set; }
-        public int AntalVarerIOdrer { get; set; }
 
         public void AddItem(ButikItems item);
         public void DeleteItem(int id);

@@ -36,7 +36,7 @@
                 @item.Lokation
             </td>
             <td>
-                 <a asp-page="ButikkensVarer" asp-route-Code="@item.ButiksNavn">Butikkens Varer</a> |               
+                 <a asp-page="/Items/ButikItems" asp-route-butikNavn="@item.ButiksNavn">Butikkens Varer</a> |               
                  <form method="post">
                     <button>
                         <a>Slet denne butik</a>
