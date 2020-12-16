@@ -12,11 +12,14 @@ namespace Indkøbsapp.Pages.Ordrers
 
     public class CheckOutModel : PageModel
     {
+        //Indeholder alle ordrer
         private IOrdrerKatalog _orderRepo;
-
+        //Indeholder alle bruger
         private IBrugerKatalog _brugerRepo;
+        //INdeholder vædierne orderen der skal vises på siden
         public Ordrer Order { get; set; }
 
+        // Henter nødvendige services
         public CheckOutModel(IOrdrerKatalog orderRepo, IBrugerKatalog brugerRepo)
         {
             _brugerRepo = brugerRepo;

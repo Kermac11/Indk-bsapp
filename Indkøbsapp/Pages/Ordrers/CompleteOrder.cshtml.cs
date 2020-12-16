@@ -12,17 +12,26 @@ namespace Indkøbsapp.Pages.Ordrers
 {
     public class CompleteOrderModel : PageModel
     {
+        //Indeholder alle brugere
         private IBrugerKatalog _users;
+
+        //Indeholder alle ordrer
         private IOrdrerKatalog _orders;
+
+        // orderen der færdiggøres
         public Ordrer Order { get; set; }
+        // brugeren der ligges til orderen
         public Bruger Bruger { get; set; }
 
+        //Henter de nødvendige service for siden
         public CompleteOrderModel(IBrugerKatalog users, IOrdrerKatalog orders)
         {
             _users = users;
             _orders = orders;
             Bruger = SharedMemory.LoggedInUser;
         }
+
+        //Putter orderen ind i orderinprocss json filen så den kan hentes til leverandører senere
         public void OnGet()
         {
             Order = _orders.FindOrder(Bruger.UserName);

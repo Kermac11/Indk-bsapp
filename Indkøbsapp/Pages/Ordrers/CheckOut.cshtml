@@ -4,6 +4,7 @@
 @using Indkøbsapp.Models
 @model Indkøbsapp.Pages.Ordrers.CheckOutModel
 @{
+                                             //Checkud siden inden orderen fædiggøres
 }
 <h3>Navn:</h3>
 <h4>@SharedMemory.LoggedInUser.UserName</h4>
@@ -30,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+    <tr>
             @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
             {
             <tr>
