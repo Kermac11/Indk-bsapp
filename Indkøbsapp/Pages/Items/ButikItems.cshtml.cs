@@ -37,18 +37,15 @@ namespace Indkøbsapp.Pages
         }
 
         //TILFØJ RIGTIGE VARER MED BILLEDER
-        
+
 
         public void OnGet(string butikNavn)
-        public ButikItemsModel(IButiksVareKatalog varer, IOrdrerKatalog orderrepo)
         {
             if (butikNavn != null) // Hvis man bliver redirected en route-butikNavn vil varerne være filtreret efter den butik når man kommer til siden med varer
             {
                 ButikFilter = butikNavn;
             }
             Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter); //Filtreringsmetoden bruger både Criteria og ButikFilter til at vise det man søger efter
-            repo = varer;
-            _orderrepo = orderrepo;
         }
         public void OnGet()
         {
@@ -60,6 +57,7 @@ namespace Indkøbsapp.Pages
             Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
         }
 
+        // Sørger for at varene bliver lagt ind i den rigtige ordrer
         public void OnPostAdd(int id)
         {
             SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id)); //Når man lægger en vare i kurven kommer den i ActiveOrder som er static
