@@ -148,23 +148,28 @@ namespace Indkøbsapp.Catalog
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
             Dictionary<string, Admin> _admins = GetAllAdmins();
-
-            if (_admins.ContainsKey(bruger.UserName))
+            if (bruger.UserName != null)
             {
-                if (_admins[bruger.UserName].PassWord == bruger.PassWord)
+
+                if (_admins.ContainsKey(bruger.UserName))
                 {
-                    return _admins[bruger.UserName];
+                    if (_admins[bruger.UserName].PassWord == bruger.PassWord)
+                    {
+                        return _admins[bruger.UserName];
+                    }
+
                 }
 
-            }
-            if (_users.ContainsKey(bruger.UserName))
-            {
-                if (_users[bruger.UserName].PassWord == bruger.PassWord)
+                if (_users.ContainsKey(bruger.UserName))
                 {
-                    return _users[bruger.UserName];
+                    if (_users[bruger.UserName].PassWord == bruger.PassWord)
+                    {
+                        return _users[bruger.UserName];
+                    }
+
                 }
-                
             }
+
             return null;
         }
 
