@@ -23,8 +23,9 @@ namespace Indkøbsapp.Pages
         [BindProperty] public string Criteria { get; set; } // Søgefeltet ændrer Criteria som bruges til at filtrere efter varenavn
         public List<string> ButikNavneList;
 
-        public ButikItemsModel(IButiksVareKatalog varer, IRepositoryButik butikNavne)
+        public ButikItemsModel(IButiksVareKatalog varer, IRepositoryButik butikNavne, IOrdrerKatalog orderrepo)
         {
+            _orderrepo = orderrepo;
             repo = varer; // repo sættes til at være hele varekataloget
             ButikNavneList = new List<string>(); // Der hentes en liste af alle butikkerne som bruges til dropdown menuen.
             foreach (var butik in butikNavne.GetAllButikker())
@@ -47,10 +48,6 @@ namespace Indkøbsapp.Pages
             }
             Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter); //Filtreringsmetoden bruger både Criteria og ButikFilter til at vise det man søger efter
         }
-        public void OnGet()
-        {
-            Items = repo.FilterItems(Criteria);
-        }
 
         public void OnPostFilter()
         {
@@ -60,6 +57,7 @@ namespace Indkøbsapp.Pages
         // Sørger for at varene bliver lagt ind i den rigtige ordrer
         public void OnPostAdd(int id)
         {
+            Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
             //Når man lægger en vare i kurven kommer den i ActiveOrder som er static
             if (SharedMemory.LoggedInUser == null)
             {
