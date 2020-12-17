@@ -47,11 +47,7 @@ namespace Indkøbsapp.Pages
             }
             Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter); //Filtreringsmetoden bruger både Criteria og ButikFilter til at vise det man søger efter
         }
-        public void OnGet()
-        {
-            Items = repo.FilterItems(Criteria);
-        }
-
+        
         public void OnPostFilter()
         {
             Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
