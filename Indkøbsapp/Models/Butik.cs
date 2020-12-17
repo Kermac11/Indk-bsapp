@@ -8,6 +8,15 @@ namespace Indkøbsapp.Models
 {
     public class Butik
     {
+        public Butik()
+        {
+        }
+
+        public Butik(string butiksNavn, string lokation)
+        {
+            ButiksNavn = butiksNavn;
+            Lokation = lokation;
+        }
         [Required]
         public string ButiksNavn { get; set; }
         [Required]
@@ -15,9 +24,9 @@ namespace Indkøbsapp.Models
 
         public override bool Equals(Object obj)
         {
-            if (obj!= null)
+            if (obj != null)
             {
-                Butik aButik = (Butik) obj;
+                Butik aButik = (Butik)obj;
                 if (aButik.ButiksNavn == ButiksNavn)
                     return true;
                 else
@@ -26,5 +35,6 @@ namespace Indkøbsapp.Models
             else
                 return false;
         }
+
     }
 }

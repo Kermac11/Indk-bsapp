@@ -22,6 +22,11 @@ namespace Indkøbsapp.Services
         {
             return butikker;
         }
+
+        public int Count
+        {
+            get { return butikker.Count; }
+        }
         public string GetButiksNavn(string butiksNavn)
         {
             foreach (Butik b in butikker)
