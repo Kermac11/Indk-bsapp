@@ -60,7 +60,7 @@ namespace Indkøbsapp.Pages
         // Sørger for at varene bliver lagt ind i den rigtige ordrer
         public void OnPostAdd(int id)
         {
-            SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id)); //Når man lægger en vare i kurven kommer den i ActiveOrder som er static
+            //Når man lægger en vare i kurven kommer den i ActiveOrder som er static
             if (SharedMemory.LoggedInUser == null)
             {
                 SharedMemory.LoggedInUser = new Bruger();
