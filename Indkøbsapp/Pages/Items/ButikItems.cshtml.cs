@@ -16,13 +16,16 @@ namespace Indkøbsapp.Pages
     public class ButikItemsModel : PageModel
     {
         public IButiksVareKatalog repo;
+
+        public IOrdrerKatalog _orderrepo;
         public List<ButikItems> Items { get; set; }
         [BindProperty] public string ButikFilter { get; set; } // Dropdown menuen ændrer ButikFilter som bruges til at filtrere efter butik
         [BindProperty] public string Criteria { get; set; } // Søgefeltet ændrer Criteria som bruges til at filtrere efter varenavn
         public List<string> ButikNavneList;
 
-        public ButikItemsModel(IButiksVareKatalog varer, IRepositoryButik butikNavne)
+        public ButikItemsModel(IButiksVareKatalog varer, IRepositoryButik butikNavne, IOrdrerKatalog orderrepo)
         {
+            _orderrepo = orderrepo;
             repo = varer; // repo sættes til at være hele varekataloget
             ButikNavneList = new List<string>(); // Der hentes en liste af alle butikkerne som bruges til dropdown menuen.
             foreach (var butik in butikNavne.GetAllButikker())
@@ -35,7 +38,7 @@ namespace Indkøbsapp.Pages
         }
 
         //TILFØJ RIGTIGE VARER MED BILLEDER
-        
+
 
         public void OnGet(string butikNavn)
         {
@@ -51,9 +54,26 @@ namespace Indkøbsapp.Pages
             Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
         }
 
+        // Sørger for at varene bliver lagt ind i den rigtige ordrer
         public void OnPostAdd(int id)
         {
-            SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id)); //Når man lægger en vare i kurven kommer den i ActiveOrder som er static
+            Items = repo.FilterByEitherItemOrButik(Criteria, ButikFilter);
+            //Når man lægger en vare i kurven kommer den i ActiveOrder som er static
+            if (SharedMemory.LoggedInUser == null)
+            {
+                SharedMemory.LoggedInUser = new Bruger();
+                SharedMemory.LoggedInUser.UserName = "Guest";
+                SharedMemory.LoggedInUser.Navn = "Guest";
+                _orderrepo.CreateOrder(SharedMemory.LoggedInUser.UserName);
+                SharedMemory.ActiveOrdrer = _orderrepo.FindOrder(SharedMemory.LoggedInUser.UserName);
+                SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
+
+            }
+            else
+            {
+                SharedMemory.ActiveOrdrer.AddItem(repo.FindItem(id));
+            }
+            
         }
     }
 }

@@ -13,14 +13,18 @@ namespace Indkøbsapp.Catalog
 {
     public class BrugerKatalog : IBrugerKatalog
     {
+
+        //Her ligger stivejen til json filerne der indholder admins og brugere, de bliver brugt til at hente og opdatere json filen-
         private string filepath = @"Data\BrugerKatalog.json";
         private string filepathAdmin = @"Data\AdminKatalog.json";
 
+        //Constructor
         public BrugerKatalog()
         {
         }
 
-
+        // denne methode checker først om der allerede eksitere en bruger med samme username får at undgå at programmet crasher.
+        //derefter ligger den den nye Dictionary ind i json filen der indeholder brugerne.
         public void CreateUser(Bruger user)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
@@ -39,6 +43,7 @@ namespace Indkøbsapp.Catalog
             }
         }
 
+        //Finder i json filen den korrkete bruger ved at bruge deres username som key, og derefter returnere valuen.
         public Bruger SearchUser(string username)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
@@ -56,6 +61,7 @@ namespace Indkøbsapp.Catalog
             return null;
         }
 
+        //Samme som den forrige men bruger id istedet for username.
        public Bruger SearchUserId(int id)
         {
             foreach (Admin user in GetAllAdmins().Values)
@@ -76,6 +82,7 @@ namespace Indkøbsapp.Catalog
             return null;
         }
 
+       // Opdatere brugeren i Dictionary ved at finde brugeren med det korrekte username, og opdatere json filen med det nye information.
         public void UpdateUser(Bruger bruger)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
@@ -86,6 +93,7 @@ namespace Indkøbsapp.Catalog
             JsonFileWriter.WriteToJson(_users, filepath);
         }
 
+        // Fjerner brugeren med det korrekte username, og derefter opdatere json filen.
         public void DeleteUserName(string username)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
@@ -96,6 +104,7 @@ namespace Indkøbsapp.Catalog
             JsonFileWriter.WriteToJson(_users,filepath);
         }
 
+        // Samme som deleteusername men med id, dog bruger den en null bruger for at checke for brugeren ekistere, da man ikke kan bruge foreach og remove uden metoden crasher. Kan også lave det som en for loop, efter behov.
         public void DeleteUserId(int id)
         {
             Bruger brugerCheck = null;
@@ -116,16 +125,7 @@ namespace Indkøbsapp.Catalog
            
         }
 
-        public void DeleteUser(string user)
-        {
-            Dictionary<string, Bruger> _users = GetAllUsers();
-            if (_users.ContainsKey(user))
-            {
-                _users.Remove(user);
-            }
-            JsonFileWriter.WriteToJson(_users, filepath);
-        }
-
+        //Aflevere tilbage filtred Dictionary efter navn eller adresse
         public Dictionary<string, Bruger> FilteredUsers(string criteria)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
@@ -143,30 +143,37 @@ namespace Indkøbsapp.Catalog
             return emptyList;
         }
 
+        //Sammeligner username og paswword properties på brugerne i json filen, og derefter brugeren der opfylder kriterierne
         public Bruger CheckPassword(Bruger bruger)
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
             Dictionary<string, Admin> _admins = GetAllAdmins();
-
-            if (_admins.ContainsKey(bruger.UserName))
+            if (bruger.UserName != null)
             {
-                if (_admins[bruger.UserName].PassWord == bruger.PassWord)
+
+                if (_admins.ContainsKey(bruger.UserName))
                 {
-                    return _admins[bruger.UserName];
+                    if (_admins[bruger.UserName].PassWord == bruger.PassWord)
+                    {
+                        return _admins[bruger.UserName];
+                    }
+
                 }
 
-            }
-            if (_users.ContainsKey(bruger.UserName))
-            {
-                if (_users[bruger.UserName].PassWord == bruger.PassWord)
+                if (_users.ContainsKey(bruger.UserName))
                 {
-                    return _users[bruger.UserName];
+                    if (_users[bruger.UserName].PassWord == bruger.PassWord)
+                    {
+                        return _users[bruger.UserName];
+                    }
+
                 }
-                
             }
+
             return null;
         }
 
+        //Laver en Dictionary der sortere efter dato de er skabt
         public Dictionary<string, Bruger> SortByCreation()
         {
             Dictionary<string, Bruger> _users = GetAllUsers();
@@ -178,11 +185,13 @@ namespace Indkøbsapp.Catalog
             return _users;
         }
 
+        // for fat i alle bruger i json filen for bruger
         public Dictionary<string, Bruger> GetAllUsers()
         {
             return JsonFileReader.ReadJson(filepath);
         }
 
+        // for fat i alle admins i admin json filen
         public Dictionary<string, Admin> GetAllAdmins()
         {
             return JsonAdminFileReader.ReadJson(filepathAdmin);

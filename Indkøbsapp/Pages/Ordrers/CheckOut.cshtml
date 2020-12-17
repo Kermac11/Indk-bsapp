@@ -1,0 +1,61 @@
+﻿@page
+@using System.Composition
+@using Indkøbsapp.Helpers
+@using Indkøbsapp.Models
+@model Indkøbsapp.Pages.Ordrers.CheckOutModel
+@{
+                                             //Checkud siden inden orderen fædiggøres
+}
+<h3>Navn:</h3>
+<h4>@SharedMemory.LoggedInUser.UserName</h4>
+<h3>Leverings Adresse:</h3>
+<h4>@SharedMemory.LoggedInUser.Adresse</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Antal
+            </th>
+            <th>
+                Varenavn
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Pris
+            </th>
+            <th>
+                Billede
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+            @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
+            {
+            <tr>
+                <td>
+                    @item.Amount
+                </td>
+                <td>
+                    @item.Item.Navn
+                </td>
+                <td>
+                    @item.Item.Description
+                </td>
+                <td>
+                    @item.Item.Price
+                </td>
+                <td>
+                    <img src="~/images/@item.Item.Billede" width="60" height="70">
+                </td>
+            </tr>
+        }
+    </table>
+    <h4>Pris:</h4>
+    <p>@SharedMemory.ActiveOrdrer.Price Kr</p>
+
+    <div class="text-center">
+        <a asp-page="/Ordrers/CompleteOrder" class="btn btn-primary">Check Out</a>
+    </div>

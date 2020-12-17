@@ -3,6 +3,7 @@
 @using Indkøbsapp.Models
 @model Indkøbsapp.Pages.Brugere.BrugerSideModel
 @{
+                                               // Brugeside man kommer ind på når man er logget ind
 }
 @if (!(Model.Bruger is Admin))
 {
@@ -20,9 +21,36 @@
 </h1>
 @if (Model.Bruger.Leverandør == true)
 {
-    <p>
-        Jeg er leverandør
-    </p>
+    <table class="table">
+        <thead>
+        <tr><th>Order i naerheden af dig</th></tr>
+        <tr>
+            <th>AntalVarerIOrdrer</th>
+            <th>By</th>
+            <th>Adresse</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (Ordrer item in Model.Ordres.GetAllOrdrerInProcess().Values)
+            {
+                if (item.Buyer.By == Model.Bruger.By)
+                {
+                    <tr>
+                        <th>@item.AntalVarerIOdrer</th>
+                        <th>@item.Buyer.By</th>
+                        <th>@item.Buyer.Adresse</th>
+                        <th>
+                            <form method="post" asp-page-handler="takeorder">
+                                <button class="btn btn-primary">Levrer order</button>
+                                <input type="hidden" name="id" value="@item.ID">
+                                <input type="hidden" name="currentuser" value="@Model.Bruger.UserName">
+                            </form>
+                        </th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 }
 
 @if (Model.Bruger is Admin)

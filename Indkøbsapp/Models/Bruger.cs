@@ -8,9 +8,14 @@ namespace Indkøbsapp.Models
 {
     public class Bruger: IBruger
     {
+
+        //Required sørger for at feltet er udfyldt
+
+        //Denne klasse har kun properties
         [Required]
         public string Navn { get; set; }
         public int ID { get; set; }
+        [Required] public string By { get; set; }
         [Required]
         public string Adresse { get; set; }
         public DateTime CreationDate { get; set; }

@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Items/ButikItems">Items</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Brugere/BrugerIndex">Login</a>
+                        </li>
                         <li class=" ml-auto">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,7 +50,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             @foreach (OrderItem item in SharedMemory.ActiveOrdrer.Order)
                                             {
-                                                <p class="dropdown-item">@item.Amount x @item.Navn</p>
+                                                <p class="dropdown-item">@item.Amount x @item.Item.Navn</p>
                                             }
                                             <a asp-page="/Ordrers/Index">Se kurv</a>
                                         </div>
