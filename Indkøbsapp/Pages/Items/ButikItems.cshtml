@@ -64,7 +64,7 @@
                 <td> @item.Price</td>
                 <td> @item.Butik</td>
                 <td> @item.TypeVare</td>
-                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>4
+                <td> <img src="~/Images/@item.Billede" width="60" height="70" alt="    "></td>
                 @if (SharedMemory.LoggedInUser is Admin)
                 {
                     <td><a asp-page="EditItem" asp-route-id="@item.ID">Edit</a></td>
